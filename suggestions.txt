@@ -1,4 +1,4 @@
-Hey Evan, this is Nicholas. I've been to a few of the meetups, and while they're great, I think that they can be more streamlined. 
+Hey Greg, this is Nicholas. I've been to a few of the meetups, and while they're great, I think that they can be more streamlined. 
 
 At the last meetup, the hardest thing for me was to explain to everyone what the algorithm should be doing, and how I knew it wasn't doing that. I was also writing quick console.log tests in order to prove things, and that's always dumb.
 
