@@ -19,3 +19,5 @@ A possible meetup format is as follows:
 
 How to find us:
 Tell the doorman you are here for Hack Reactor and then come up to the 8th(top) floor!
+
+This week's Algorithm is pretty simple. It just creates a shallow copy (a 'clone') of an object (this includes arrays).
