@@ -17,20 +17,20 @@ describe('clone', function() {
     var newobj = clone(originalobj);
     var newarray = clone(originalarray);
     
-    expect(newobj["key1"]).to.eql(originalobj["key1"]);
+    expect(newobj["key1"]).to.be(originalobj["key1"]);
 
-    expect(newarray[0]).to.eql(originalarray[0]);
+    expect(newarray[0]).to.be(originalarray[0]);
 
-    expect(newobj["key3"]).to.not.eql(originalobj["key3"]);
+    expect(newobj).to.not.be(originalobj);
 
-    expect(newarray[3]).to.not.eql(originalarray[3]);
+    expect(newarray).to.not.be(originalarray);
   });
 
   it('should not copy deeper than one level', function() {
     var newobj = clone(originalobj);
     var newarray = clone(originalarray);
 
-    expect(newobj["key3"]["innerkey1"]).to.eql(originalobj["key3"]["innerkey1"]);
+    expect(newobj["key3"]["innerkey3"]).to.eql(originalobj["key3"]["innerkey3"]);
 
     expect(newarray[3][0]).to.eql(originalarray[3][0]);
   });
