@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>Monte Carlo Integration</title>
+  <link rel="stylesheet" type="text/css" href="styles/jsxgraph.css" />
+  <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+</head>
+<body>
+  <div class='graph container'>
+    <div id="box" class="jxgbox" style="width:500px; height:500px;"></div>
+  </div>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/jsxgraphcore.js"></script>
+  <script src='src/montecarlo.js'></script>
+  <script src='src/base.js'></script>
+
+  <div class='setup container'>
+    <section>
+      <span>Graph Dimensions:</span><br>
+      <label for='minx'>MinX: </label><input type='text' class='dimensions' id='minx' value='-5'></input><br>
+      <label for='maxx'>MaxX: </label><input type='text' class='dimensions' id='maxx' value='5'></input><br>
+      <label for='miny'>MinY: </label><input type='text' class='dimensions' id='miny' value='-5'></input><br>
+      <label for='maxy'>MaxY: </label><input type='text' class='dimensions' id='maxy' value='5'></input><br>
+    </section>
+    <section>
+      <span>Lower Boundary:</span><br>
+      <label for='gt1'>Y &gt; </label><input type='text' id='gt1' class='function gt'></input><br>
+      <label for='gt2'>Y &gt; </label><input type='text' id='gt2' class='function gt'></input><br>
+    </section>
+    <section>
+      <span>Upper Boundary:</span><br>
+      <label for='lt1'>Y &lt; </label><input type='text' id='lt1' class='function lt'></input><br>
+      <label for='lt2'>Y &lt; </label><input type='text' id='lt2' class='function lt'></input><br>
+    </section>
+    <section>
+      <span>Horizontal Boundary:</span><br>
+      <label for='xgt'>X &gt; </label><input type='text' id='xgt' class='vert xgt'></input><br>
+      <label for='xlt'>X &lt; </label><input type='text' id='xlt' class='vert xlt'></input><br>
+    </section>
+  </div>
+
+  <div class='action container'>
+    <button class='graph'>Graph</button>
+    <button class='clear'>Clear</button>
+    <button class='run'>Integrate</button>
+  </div>
+
+  <div class='result container'>
+    The area is: <span class='integrationResult'></span>
+  </div>
+
+  </body>
+  </html>
