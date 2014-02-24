@@ -9,7 +9,7 @@ $(document).on('ready', function() {
   // Methods for the solution.
   //
 
-  window.getWindowDimensions = function() {
+  window.getGraphDimensions = function() {
     var minx = Number($('#minx').val());
     var maxx = Number($('#maxx').val());
     var miny = Number($('#miny').val());
@@ -27,30 +27,35 @@ $(document).on('ready', function() {
     };
   };
 
-  window.evalPoint = function(point) {
-
-    if ((xlt !== null && point.x > xlt) || (xgt !== null && point.x < xgt)) return false;
+  window.evalPoint = function(x, y) {
 
     var inside = true;
 
-    for (var i = 0; i < inequalities.length; i++) {
-      var inequality = inequalities[i];
-      var fx = inequality.fn(point.x);
-      if (inequality.type === "<" && point.y > fx) {
-        inside = false;
-      } else if (inequality.type === ">" && point.y < fx) {
-        inside = false;
+    if ((xlt !== null && x > xlt) || (xgt !== null && x < xgt)) {
+      inside = false;
+    } else {
+      for (var i = 0; i < inequalities.length; i++) {
+        var inequality = inequalities[i];
+        var fx = inequality.fn(x);
+        if (inequality.type === "<" && y > fx) {
+          inside = false;
+        } else if (inequality.type === ">" && y < fx) {
+          inside = false;
+        }
       }
     }
+
+    color = (inside ? "green" : "red");
+
+    createPoint(x, y, color);
 
     return inside;
   };
 
 
-  window.createPoint = function(x, y, name) {
-    name = name || "";
+  var createPoint = function(x, y, color) {
     var p = {
-      pt: board.create('point', [x, y], {name:name, fixed: true, size: 0.0001}),
+      pt: board.create('point', [x, y], {name: '', strokeColor:color, fixed: true, size: 0.0001}),
       x: x,
       y: y
     };

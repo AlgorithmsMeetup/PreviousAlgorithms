@@ -1,21 +1,30 @@
 /*
   YOUR TASK:  To fill in the following function.
 
-  It should return a number equal to the area of the shape.
+  --- BASIC REQUIREMENTS ---
+    * It should return a number equal to the area of the shape.
 
-  The following methods are available to you:
+  --- EXTRA CREDIT ---
+    * Have the algorithm only halt after a certain degree of precision has been reached.
+    * Refine your algorithm to choose points in a "smarter" fashion.
+    * Dig into base.js and improve performance there.
 
-    createPoint: function(x, y, options)
-      -- Creates a point on the graph.
-      -- Returns an object with x and y properties.
-      -- Options include "name" and "color"
+  --- AVAILABLE METHODS ---
 
-    evalPoint: function(point) [whichever you like]
-      -- Returns "true" if a point is inside the shape, and false otherwise.
+    The following methods are available to you in the global scope:
 
-    getWindowDimensions: function()
-      -- Returns an objects with the dimensions of the window.
-      -- Has properties x and y, each of which has properties min and max.
+      evalPoint: function(x, y)
+        -- Returns "true" if a point is inside the shape, and false otherwise.
+
+      getGraphDimensions: function()
+        -- Returns an objects with the dimensions of the graph.
+        -- Has properties x and y, each of which has properties min and max.
+           (ex. { x:{min: 3, max: 10}, y:{min:-5, max: 6} })
+
+  --- SOME THINGS TO THINK ABOUT ---
+    * Which shapes are easier/harder to integrate?
+    * What ratio of window size to shape size maximizes accuracy?
+    * 
 */
 
 var integrate = function() {
