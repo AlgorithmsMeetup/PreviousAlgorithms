@@ -29,6 +29,30 @@
 
 var integrate = function() {
 
-  return 42;
+  var totalPoints = 1001;
+  var counter = totalPoints;
+  var dimensions = getGraphDimensions();
+  var width = dimensions.x.max - dimensions.x.min;
+  var height = dimensions.y.max - dimensions.y.min;
+  var area = width * height;
+  var hits = 0;
 
+
+  while (counter--) {
+    var x = Math.random() * width + dimensions.x.min;
+    var y = Math.random() * height + dimensions.y.min;
+    var inside = evalPoint(x, y);
+    if (inside) {
+      hits++;
+    }
+  }
+
+  var hitsRatio = hits / totalPoints;
+
+  return hitsRatio * area;
 };
+
+
+
+
+
