@@ -1,0 +1,17 @@
+body {
+  font-family: "courier new", courier
+}
+
+.container {
+  margin: 20px;
+}
+
+.setup.container section {
+  display: inline-block;
+  margin: 20px;
+}
+
+button {
+  font-size: 24px;
+  padding: 10px;
+}
