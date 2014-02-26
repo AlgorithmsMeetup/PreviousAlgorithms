@@ -16,6 +16,7 @@ $(document).on('ready', function() {
     var maxy = Number($('#maxy').val());
 
     return {
+      
       x: {
         min: minx,
         max: maxx

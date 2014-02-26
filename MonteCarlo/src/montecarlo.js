@@ -28,7 +28,22 @@
 */
 
 var integrate = function() {
+  var counter = 1000, hits = 0;
+  var d = getGraphDimensions();
+  var width = d.x.max - d.x.min;
+  var height = d.y.max - d.y.min;
+  var area = width * height;
 
-  return 42;
+  for(var i = 0; i < counter; i++) {  
+    var x = Math.random() * width + d.x.min;
+    var y = Math.random() * height + d.y.min;
+    evalPoint(x, y) && hits++;
+  }
 
+  return (hits / counter) * area;
 };
+
+
+
+
+
