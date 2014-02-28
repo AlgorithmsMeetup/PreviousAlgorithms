@@ -29,8 +29,6 @@
 
 var integrate = function() {
 
-var integrate = function() {
-
     // Get the dimensions of the field
     var graphDimensions = getGraphDimensions();
     var xLength = (graphDimensions.x.max - graphDimensions.x.min);
