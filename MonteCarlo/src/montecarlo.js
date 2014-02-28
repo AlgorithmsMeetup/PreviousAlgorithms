@@ -29,6 +29,36 @@
 
 var integrate = function() {
 
-  return 42;
+var integrate = function() {
+
+    // Get the dimensions of the field
+    var graphDimensions = getGraphDimensions();
+    var xLength = (graphDimensions.x.max - graphDimensions.x.min);
+    var yHeight = (graphDimensions.y.max - graphDimensions.y.min);
+    var area = xLength * yHeight 
+    
+    
+    //Run the loop X times
+    var x = 1000;
+    var numInside=0;
+
+    for (var i = 0; i< x; i++){
+    
+    // Generate the random number
+    var fireX = graphDimensions.x.min + Math.random()*xLength;
+    var fireY = graphDimensions.y.min + Math.random()*yHeight;
+    
+    //console.log(fireX);
+    // console.log(fireY);
+
+    if (evalPoint(fireX,fireY)) numInside++;
+    // console.log(numInside);
+
+    };
+    console.log(numInside);
+    console.log(x);
+    console.log(area);
+
+    return numInside / x * area;
 
 };
