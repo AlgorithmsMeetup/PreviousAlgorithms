@@ -4,7 +4,7 @@ $(document).on('ready', function() {
   // Globals.
   //
 
-  var size = 4;
+  var size = 3;
   var moveInterval = 400;
 
   var squares; // map to find squares in O(1) - id 12 is at array position 12.
@@ -242,6 +242,7 @@ $(document).on('ready', function() {
 
   $sizeSlider.on('mouseup', function() {
     size = $sizeSlider.val();
+    $(document).attr('title', (Math.pow(size, 2) - 1) + " Puzzle");
     reset();
   });
 
