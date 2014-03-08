@@ -155,7 +155,7 @@ $(document).on('ready', function() {
   };
 
   //
-  // Functions availble for the solver.
+  // Functions available for the solver.
   //
 
   window.getBoard = function() {
@@ -225,6 +225,39 @@ $(document).on('ready', function() {
   window.hasThereBeenAnError = function() {
     return error;
   };
+
+  //
+  // Functions available for console testing
+  //
+
+  window.printBoard = function() {
+    for (var i = 0; i < size; i++) {
+      var row = [];
+      for (var j = 0; j < size; j++) {
+        row.push(board[i][j]);
+      }
+      console.log(row);
+    }
+  };
+
+  // Window.move will be a tiny bit smart
+  window.move = function(idOrRow, col) {
+    if (!error){
+      var result;
+      if (col === undefined) {
+        result = movePiece(squares[idOrRow].row, squares[idOrRow].col);
+      } else {
+        result = movePiece(idOrRow, col);
+      }
+      console.log(result);
+      if (!result) {
+        error = true;
+        $error.text("There has been a grievous mistake.");
+      } else {
+        renderQueue.push(getBoard());
+      }
+    }
+  }
 
   //
   // Event bindings
