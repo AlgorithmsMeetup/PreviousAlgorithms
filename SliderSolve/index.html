@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>15 Puzzle</title>
+  <link rel='stylesheet' href='src/css/styles.css'/>
+</head>
+<body>
+  <div class='container'>
+    <div class='board'></div>
+    <div class='error'></div>
+  </div>
+  <div class='controls'>
+    <label>Size: </label><input class='size' type='range' min='2' max='8' value='4'></input><br>
+    <label>Move Speed: </label><input class='speed' type='range' min='20' max='49' value='30'></input>
+    <button class='reset'>Reset</button>
+    <button class='run'>Run</button>
+  </div>
+  <script src='lib/jquery.js'></script>
+  <script src='lib/underscore-min.js'></script>
+  <script src='src/js/scripts.js'></script>
+  <script src='src/js/sliderSolver.js'></script>
+</body>
+</html>

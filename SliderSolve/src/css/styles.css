@@ -1,0 +1,42 @@
+body {
+  font-family: system;
+}
+
+.container {
+  float: left;
+}
+
+.board {
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.square {
+  display: inline-block;
+  padding: 17px 0;
+  width: 80px;
+  margin: 0;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.error {
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.controls {
+  float: left;
+  margin-left: 50px;
+  text-align: center;
+}
+
+button {
+  margin: 30px auto;
+  display: block;
+  padding: 10px 25px;
+}
+
+input {
+  margin: 30px;
+}
