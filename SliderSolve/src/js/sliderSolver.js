@@ -33,6 +33,15 @@
     checkIfSolved():
       - returns true if you have solved the puzzle.
 
+  Methods Specifically for Console Testing
+
+    move(idOrRow, col):
+     - acts like moveByLocation + moveByValue
+     - chooses how to act based on # of arguments
+
+    printBoard():
+     - acts like getBoard, but instead prints the board to console
+
 */
 
 
