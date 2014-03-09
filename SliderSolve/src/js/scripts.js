@@ -228,7 +228,7 @@ $(document).on('ready', function() {
     var value = (size * row) + 1;
     for(var i = 0; i < size; i++) {
       if (board[row][i] !== value++) {
-        if(row === size - 1 && board[row][i] === 'null') {
+        if(row === size - 1 && board[row][i] === null) {
           return true;
         }
         return false;
