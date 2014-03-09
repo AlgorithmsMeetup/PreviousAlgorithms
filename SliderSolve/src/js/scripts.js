@@ -222,13 +222,31 @@ $(document).on('ready', function() {
     }
   };
 
-  window.checkRowIfSolved = function(row) {
-    var board = getBoard();
+  window.checkRowIfSolved = function(row, board) {
+    board = board || getBoard();
     var size = board[row].length; // Future proof, 4x3 sliders anyone?
     var value = (size * row) + 1;
+
     for(var i = 0; i < size; i++) {
       if (board[row][i] !== value++) {
         if(row === size - 1 && board[row][i] === null) {
+          return true;
+        } 
+        return false;
+      }
+    }
+    return true;
+  };
+
+  window.checkColumnIfSolved = function(column, board) {
+    board = board || getBoard();
+    var size = board.length; // Future proof, 3x4 sliders anyone?
+    var value;
+
+    for ( var i = 0; i < size; i++ ) {
+      value = (size * i) + column + 1;
+      if ( board[i][column] !== value ) { // Removed dependency on value variable
+        if ( column === size - 1 && board[i][column] === null ) {
           return true;
         }
         return false;
