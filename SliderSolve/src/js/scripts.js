@@ -222,6 +222,21 @@ $(document).on('ready', function() {
     }
   };
 
+  window.checkRowIfSolved = function(row) {
+    var board = getBoard();
+    var size = board[row].length; // Future proof, 4x3 sliders anyone?
+    var value = (size * row) + 1;
+    for(var i = 0; i < size; i++) {
+      if (board[row][i] !== value++) {
+        if(row === size - 1 && board[row][i] === 'null') {
+          return true;
+        }
+        return false;
+      }
+    }
+    return true;
+  };
+
   window.hasThereBeenAnError = function() {
     return error;
   };
