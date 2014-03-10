@@ -273,8 +273,7 @@ $(document).on('ready', function() {
     }
   };
 
-  // Window.move will be a tiny bit smart
-  window.move = function(idOrRow, col) {
+  window.move = function(idOrRow, col) { // Tiny bit smart move
     if (!error){
       var result;
       if (col === undefined) {
@@ -282,6 +281,7 @@ $(document).on('ready', function() {
       } else {
         result = movePiece(idOrRow, col);
       }
+      renderBoard(board);
       console.log(result);
       if (!result) {
         error = true;
@@ -290,7 +290,24 @@ $(document).on('ready', function() {
         renderQueue.push(getBoard());
       }
     }
-  }
+  };
+
+  //
+  // Help
+  //
+
+  window.help = function() {
+    console.log("getSize()");
+    console.log("findByLocation()");
+    console.log("findByValue()");
+    console.log("findEmpty()");
+    console.log("getBoard()");
+    console.log("moveByLocation()");
+    console.log("moveByValue()");
+    console.log("checkIfSolved()");
+    console.log("checkRowIfSolved()");
+    console.log("checkColumnIfSolved()");
+  };
 
   //
   // Event bindings
