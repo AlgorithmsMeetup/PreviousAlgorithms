@@ -222,31 +222,31 @@ $(document).on('ready', function() {
     }
   };
 
-  window.checkRowIfSolved = function(row, board) {
-    board = board || getBoard();
-    var size = board[row].length; // Future proof, 4x3 sliders anyone?
+  window.checkRowIfSolved = function(row, inputBoard) {
+    inputBoard = inputBoard || board;
+    var size = inputBoard[row].length; // Future proof, 4x3 sliders anyone?
     var value = (size * row) + 1;
 
     for(var i = 0; i < size; i++) {
-      if (board[row][i] !== value++) {
-        if(row === size - 1 && board[row][i] === null) {
+      if (inputBoard[row][i] !== value++) {
+        if(row === size - 1 && inputBoard[row][i] === null) {
           return true;
-        } 
+        }
         return false;
       }
     }
     return true;
   };
 
-  window.checkColumnIfSolved = function(column, board) {
-    board = board || getBoard();
-    var size = board.length; // Future proof, 3x4 sliders anyone?
+  window.checkColumnIfSolved = function(column, inputBoard) {
+    inputBoard = inputBoard || board;
+    var size = inputBoard.length; // Future proof, 3x4 sliders anyone?
     var value;
 
     for ( var i = 0; i < size; i++ ) {
       value = (size * i) + column + 1;
-      if ( board[i][column] !== value ) { // Removed dependency on value variable
-        if ( column === size - 1 && board[i][column] === null ) {
+      if ( inputBoard[i][column] !== value ) { // Removed dependency on value variable
+        if ( column === size - 1 && inputBoard[i][column] === null ) {
           return true;
         }
         return false;
@@ -298,12 +298,12 @@ $(document).on('ready', function() {
 
   window.help = function() {
     console.log("getSize()");
-    console.log("findByLocation()");
-    console.log("findByValue()");
+    console.log("findByLocation(row, col)");
+    console.log("findByValue(value)");
     console.log("findEmpty()");
     console.log("getBoard()");
-    console.log("moveByLocation()");
-    console.log("moveByValue()");
+    console.log("moveByLocation(row, col)");
+    console.log("moveByValue(value)");
     console.log("checkIfSolved()");
     console.log("checkRowIfSolved()");
     console.log("checkColumnIfSolved()");

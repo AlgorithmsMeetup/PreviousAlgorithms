@@ -30,6 +30,10 @@
       - moves the piece with the specified value.
       - be careful!  if you make an illegal move, your algorithm will stop.
 
+    move(idOrRow, col):
+     - acts like moveByLocation + moveByValue
+     - chooses how to act based on # of arguments
+
     checkIfSolved():
       - returns true if you have solved the puzzle.
 
@@ -40,20 +44,14 @@
     checkColumnIfSolved(column):
       - returns true if a column is completed have solved the puzzle.
 
-  Methods Specifically for Console Testing
-
-    move(idOrRow, col):
-     - acts like moveByLocation + moveByValue
-     - chooses how to act based on # of arguments
-
     printBoard():
-     - acts like getBoard, but instead prints the board to console
+     - acts like getBoard, but instead prints the board to console.
 
 */
 
 
 var solve = function() {
-  
+
 };
 
-// A naive approach is to alternate solving the top and 
+// A naive approach is to alternate solving the top and
