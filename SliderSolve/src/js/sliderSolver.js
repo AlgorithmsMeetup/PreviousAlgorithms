@@ -49,8 +49,57 @@
 
 */
 
+//
+var cycle = function(moveArray, times, direction) {
+  var i,
+      j,
+      length; 
+
+  times = times || 1;
+  direction = direction || 'cw';
+
+  for( i = 0 ; i < times; i++ ) {
+    var copy = moveArray.slice();
+    for( j = 0; j < moveArray.length; j++) {
+      if(direction === 'ccw') {
+        move(copy.pop());
+      } else {
+        move(copy.shift());
+      }
+    }
+  }
+};
 
 var solve = function() {
+
+  /*
+  Cycling:
+  Find the null value.
+  Draw a rectangle around the cycling pieces and the null value
+  Put all of the cycling squares' values into a linked list
+  call moveByValue on each square in the list
+    cycle direction is determined by head to tail or tail to head
+  */
+
+
+
+  /*
+  On a 2x2 board
+  Cycle board until board is solved
+  */
+
+  /*
+  On a 3x3 board
+  Put 1 <- 2 in the top right corner
+    If 2 is in corner, move 1 to the side
+  Put 3 under 2
+  Cycle outer edge once
+  Put  4 <- 7 on the bottom edge
+    If 7 is above 4 to the left
+
+  cycle bottom two rows until column(0) is completed
+  cycle the 2x2 board until board is solved
+  */ 
 
 };
 
