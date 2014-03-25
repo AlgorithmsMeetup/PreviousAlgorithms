@@ -50,8 +50,28 @@
 */
 
 
-var solve = function() {
+var size;
+var targetRow = 0;
+var targetCol = 0;
+var movingRow = true;
+var iters = 0;
 
+var solve = function() {
+  size = getSize();
+  recurse();
 };
 
-// A naive approach is to alternate solving the top and
+var recurse = function() {
+  if (iters++ > 6000) return;
+  var board = getBoard();
+  if (visited[stringified]) {
+    console.log("already visited this!");
+    return;
+  } else {
+    visited[stringified] = true;
+  }
+  var empty = findEmpty();
+  var er = empty.row;
+  var ec = empty.col;
+
+};
