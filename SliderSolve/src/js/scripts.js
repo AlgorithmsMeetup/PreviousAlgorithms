@@ -328,7 +328,7 @@ $(document).on('ready', function() {
   });
 
   $speedSlider.on('change', function() {
-    moveInterval = 1000 - 20*Number($speedSlider.val());
+    moveInterval = 981 - 20*Number($speedSlider.val());
   });
 
   $reset.on('click', function() {
