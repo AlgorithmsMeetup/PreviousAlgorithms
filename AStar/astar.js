@@ -32,10 +32,44 @@ window.solve = function(startNode) {
   var open = [startNode];
   var closed = [];
 
-  var current = startNode;
+  startNode.g = 0
+  startNode.f = startNode.calcHeuristic()
 
-  if (current.isGoal()) {
-    return current;
+  var current;
+  while (open.length) {
+    // Find the best node in the open set.
+    var best = 0;
+    for (var i = 0; i < open.length; i++) {
+      if (open[i].f < open[best].f) {
+        best = i;
+      }
+    }
+    var current = open.splice(best, 1).pop();
+    current.visit();
+    if (current.isGoal()) {
+      return current;
+    }
+
+    var neighbors = current.neighbors();
+    for (var i = 0; i < neighbors.length; i++) {
+      var neighbor = neighbors[i];
+      // Only process nodes we haven't already processed.
+      if (neighbor.indexIn(closed) === -1) {
+
+        // See if this node is already in the open set.
+        var indexInOpenSet = neighbor.indexIn(open);
+
+        // If it's not in the open set right now.
+        if (indexInOpenSet === -1) {
+
+          open.push(neighbor);
+          neighbor.g = current.g + 1;
+          neighbor.f = neighbor.g + neighbor.calcHeuristic();
+
+        }
+      }
+    }
+    closed.push(current);
   }
 };
 
