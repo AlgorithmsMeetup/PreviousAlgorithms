@@ -77,8 +77,10 @@ window.solve = function(startNode) {
 				open.push(nextNode);
 			}
 		}
+		//recursively call function again (note bind to keep stack from growing)
 		return findNextStepInPath.bind(null, current, open, closed);
 	}
+	//recursively call function again (note bind to keep stack from growing)
 	return trampoline(findNextStepInPath.bind(null, current, open, closed));
 
 }
