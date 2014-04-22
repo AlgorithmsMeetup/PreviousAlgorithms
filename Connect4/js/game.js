@@ -160,7 +160,6 @@ $(document).ready(function() {
 
     // Function to be called with a move.
     var attemptMove = function(col) {
-      console.log("got move!", col);
       clearTimeout(outOfTime);
       if (!moveProvided) {
         moveProvided = true;
@@ -169,7 +168,6 @@ $(document).ready(function() {
             console.log("oops! looks like you didn't move in time.  making a random move.");
             throw "didn't move in time";
           } else {
-            console.log("move was from the player");
           }
           placePiece(col, turn);
         // If the player's move is illegal...
