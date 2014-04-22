@@ -29,21 +29,7 @@
 players.red = {
 
   move: function(callback) {
-    var bestMove = 0;
-    var bestValue = -10000;
-    var col = Math.floor(Math.random()*7);
-    for (var col = 0; col < 7; col++) {
-      var copy = copyBoard();
-      var boardWithMove = makeMove(1, col, copy);
-      // console.log("boardWithmove", boardWithMove)
-      if (boardWithMove) {
-        var evaluation = evaluateBoard(boardWithMove, 1);
-        if (evaluation > bestValue) {
-          bestValue = evaluation;
-          bestMove = col;
-        }
-      }
-    }
+    var bestMove = 3;
     return callback(bestMove);
   }
 
