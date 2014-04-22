@@ -1,10 +1,12 @@
+var players = {};
+var outOfTime;
 $(document).ready(function() {
 
   // Game variables.
   var board,
       width = 7,
       height = 6,
-      timePerMove = 800,
+      timePerMove = 2000,
       turn;
 
   // Cached jQuery selectors.
@@ -45,11 +47,11 @@ $(document).ready(function() {
     }
   };
 
-  var placePiece = function(col, b) {
+  var placePiece = function(col, color, b) {
     b = b || board
     for (var row = height; row--;) {
       if (b[row][col] === 0) {
-        b[row][col] = turn;
+        b[row][col] = color;
         return;
       }
     }
@@ -154,8 +156,11 @@ $(document).ready(function() {
     // Don't let two moves be made.
     var moveProvided = false;
 
+    console.log("requesting move for player", turn);
+
     // Function to be called with a move.
     var attemptMove = function(col) {
+      console.log("got move!", col);
       clearTimeout(outOfTime);
       if (!moveProvided) {
         moveProvided = true;
@@ -166,7 +171,7 @@ $(document).ready(function() {
           } else {
             console.log("move was from the player");
           }
-          placePiece(col);
+          placePiece(col, turn);
         // If the player's move is illegal...
         } catch (ex) {
           console.log("oops! looks like that move doesn't work.  making a random move.");
@@ -181,7 +186,7 @@ $(document).ready(function() {
           // If there are any, make a random legal move.
           if (legal.length) {
             var choice = Math.floor(Math.random()*legal.length)
-            placePiece(legal[choice]);
+            placePiece(legal[choice], turn);
 
           // Otherwise, end the game in a draw.
           } else {
@@ -202,33 +207,30 @@ $(document).ready(function() {
     // Call the move function of the player who's turn it is.
     players[turn === 1 ? "red" : "blue"].move(attemptMove);
     //
-    var outOfTime = setTimeout(function(){ attemptMove(-1);}, timePerMove);
+    clearTimeout(outOfTime);
+    outOfTime = setTimeout(function(){ attemptMove(-1);}, timePerMove);
   };
 
-  window.printBoard = printBoard
+  window.printBoard = printBoard;
+  window.copyBoard = copyBoard;
+  window.makeMove = function(turn, col, board) {
+    var board = copyBoard(board);
+    try {
+      placePiece(col, turn, board);
+    } catch (ex) {
+      return null;
+    }
+    return board;
+  };
 
   // Init.
-  init();
-  render();
-  requestMove();
+  setTimeout((function(){
+    init();
+    render();
+    requestMove();
+  }).bind(this), 500);
+
 });
-
-var randomMove = function(cb) {
-  setTimeout(function() {
-    var col = Math.floor(Math.random()*7);
-    return cb(col);
-  }, Math.random()*1000)
-}
-
-var players = {
-  red: {
-    move: randomMove
-  },
-  blue: {
-    move: randomMove
-  }
-}
-
 
 
 
