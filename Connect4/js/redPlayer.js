@@ -38,7 +38,7 @@ players.red = {
       // console.log("boardWithmove", boardWithMove)
       if (boardWithMove) {
         var evaluation = evaluateBoard(boardWithMove, 1);
-        if (evaluation && evaluation > bestValue) {
+        if (evaluation > bestValue) {
           bestValue = evaluation;
           bestMove = col;
         }
