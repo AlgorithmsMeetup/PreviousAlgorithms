@@ -49,6 +49,26 @@
 
 */
 
+//
+var cycle = function(moveArray, times, direction) {
+  var i,
+      j,
+      length; 
+
+  times = times || 1;
+  direction = direction || 'cw';
+
+  for( i = 0 ; i < times; i++ ) {
+    var copy = moveArray.slice();
+    for( j = 0; j < moveArray.length; j++) {
+      if(direction === 'ccw') {
+        move(copy.pop());
+      } else {
+        move(copy.shift());
+      }
+    }
+  }
+};
 
 var size;
 var targetRow = 0;

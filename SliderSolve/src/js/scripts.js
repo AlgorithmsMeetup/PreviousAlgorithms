@@ -281,8 +281,6 @@ $(document).on('ready', function() {
       } else {
         result = movePiece(idOrRow, col);
       }
-      renderBoard(board);
-      console.log(result);
       if (!result) {
         error = true;
         $error.text("There has been a grievous mistake.");
