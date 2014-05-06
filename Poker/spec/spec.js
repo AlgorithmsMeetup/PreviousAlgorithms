@@ -18,7 +18,7 @@ describe('Correctly labels poker hands', function() {
   });
 
   it("Straight", function() {
-    expect(poker.labelHand("5C 6H 7S 8C 9D")).to.equal("Straight up to T");
+    expect(poker.labelHand("5C 6H 7S 8C 9D")).to.equal("Straight up to 9");
     expect(poker.labelHand("AH 2H 3S 5C 4H")).to.equal("Straight up to 5");
     expect(poker.labelHand("TC JS QS KH AD")).to.equal("Straight up to A");
   });
