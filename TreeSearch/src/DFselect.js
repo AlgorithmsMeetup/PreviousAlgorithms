@@ -1,7 +1,7 @@
 // Write your code here
 Tree.prototype.DFSelect = function(fn){
-	out = [];
-	depth=0;
+	var out = [];
+	var depth=0;
 	dfSearch(this, depth, out, fn);
 	return out;
 };

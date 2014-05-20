@@ -2,8 +2,8 @@
 
 // Write your code here
 Tree.prototype.BFSelect = function(fn){
-	out = [];
-	depth=0;
+	var out = [];
+	var depth=0;
 	bfSearch([this], depth, out, fn);
 	return out;
 };
