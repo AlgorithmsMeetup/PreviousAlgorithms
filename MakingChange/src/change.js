@@ -13,7 +13,7 @@
   Enjoy!
 */
 
-var coinValues = [10000, 5000, 1000, 500, 100, 25, 10, 5, 1];
+var coinValues = [10000, 5000, 2000, 1000, 500, 100, 50, 25, 10, 5, 1];
 
 var makeChange = function(amount) {
   return 4;

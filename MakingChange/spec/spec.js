@@ -1,5 +1,5 @@
 (function() {
-  var cache, myAnswer, yourAnswer, valueInDollars, recurse, value, _i, _len, generateTest;
+  var cache, myCoinValues, maxAmount, generateAnswers, yourAnswer, valueInDollars, count, value, _i, _len, generateTest, answers;
 
   cache = [[]];
   for (_i = 0, _len = coinValues.length; _i < _len; _i++) {
@@ -7,72 +7,42 @@
     cache.push([]);
   }
 
-  myAnswer = function(amount) {
-
-    answer = recurse(amount, coinValues);
-    return answer;
-  };
-
-  recurse = function(amount, coins) {
-    var coinsWithoutMax, count, deduction, max;
-    if (coins.length === 1) {
-      return 1;
-    } else if (cache[coins.length][amount]) {
-      return cache[coins.length][amount];
+  count = function(amount, coins) {
+    var result = 0;
+    if (cache[coins.length][amount]) {
+      result = cache[coins.length][amount];
     } else if (amount === 0) {
-      return 1;
+      result = 1;
+    } else if (amount < 0) {
+      result = 0;
+    } else if (coins.length === 0) {
+      result = 0;
+    } else {
+      result = count(amount, coins.slice(1)) + count(amount - coins[0], coins)
     }
-
-    count = 0;
-    deduction = 0;
-    max = coins[0];
-    coinsWithoutMax = coins.slice(1);
-    while (amount >= deduction) {
-      count += recurse(amount - deduction, coinsWithoutMax);
-      deduction += max;
-    }
-    cache[coins.length][amount] = count;
-    return count;
+    cache[coins.length][amount] = result;
+    return result
   };
 
-  valueInDollars = function(value) {
-    return (value / 100).toFixed(2);
+  answers = [];
+  myCoinValues = coinValues.sort(function(a, b) {return b - a;});
+  maxAmount = amountsToTest[amountsToTest.length - 1];
+  for (var i = 0; i <= maxAmount; i++) {
+    answers[i] = count(i, myCoinValues)
+  }
+
+  amountInDollars = function(amount) {
+    return (amount / 100).toFixed(2);
   };
 
-  generateTest = function(value) {
-    var start = Date.now();
-    var yourAnswer = makeChange(value);
-    var time = Date.now() - start;
-    console.log(start, Date.now());
-    it("Change for $" + valueInDollars(value) + " - your calcuations took " + time + " miliseconds.", function() {
-      expect(yourAnswer).to.equal(myAnswer(value));
+  generateTest = function(amount) {
+    it("Change for $" + amountInDollars(amount), function() {
+      expect(yourAnswer).to.equal(answers[amount]);
     });
   };
 
-  describe("1-50", function() {
-    for(var i = 1; i <= 50; i++) {
-      generateTest(i);
-    }
-  });
-
-  describe("51-100", function() {
-    for(var i = 51; i <= 100; i += 2) {
-      generateTest(i);
-    }
-  });
-
-  describe("101-1000", function() {
-    for(var i = 101; i <= 1000; i += 5) {
-      generateTest(i);
-    }
-  });
-
-  describe("bonus!", function() {
-    generateTest(2000);
-    generateTest(5000);
-    generateTest(10000);
-    generateTest(20000);
-    generateTest(50000);
-  });
+  for (var i = 0; i < amountsToTest.length; i++) {
+    generateTest(amountsToTest[i]);
+  };
 
 })();
