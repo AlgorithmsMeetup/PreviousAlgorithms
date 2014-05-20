@@ -52,14 +52,30 @@ var makeChange = function(amount) {
 };
 
 // Bonus: A dynamic programming solution!  About 2x as fast - see if you can figure it out!
-// Hint: write the problem as a table.  Each row represents the amount of change to make,
+// Hint: we write the problem as a table.  Each row represents the amount of change to make,
 // and each column represents a kind of coin (the leftmost is 0, second is 1c, third is 5c, etc)
-//
+
 // To calculate the value of each square, we add the values of two other squares together -
-//    * The square to the left, which represents getting rid of the biggest coin.
-//    * The square as many rows above as the value of the biggest coin.
-//    * This avoids having to ever call things recursively - we just build a big table!
-//
+//    * The square to the left, which represents all possibilites using smaller coins.
+//    * The square as many rows above as the value of that coin.
+//      This is all possibilities after taking away one of this coin
+// This method avoids having to ever call things recursively - we just build a big table!
+// The first row is all we need to start things off, and we set it to 0 and then all 1s.
+
+// Example: if coin values are 1, 2, and 4:
+
+// coins:  0,  1,  2,  4
+// --------------------
+// 0:      0   1   1   1
+// 1:      0   1   1   1
+// 2:      0   1   2   2
+// 3:      0   1   2   2
+// 4:      0   1   3   4
+// 5:      0   1   3   4
+// 6:      0   1   4   6
+// ...
+
+// We continue to exapand this table until we get to the row we want.  The answer is in the bottom right.
 // var makeChange = function(amount) {
 //   var coins = coinValues.concat(0).reverse();
 
