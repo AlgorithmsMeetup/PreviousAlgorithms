@@ -14,4 +14,4 @@ var amountsToTest = [1, 2, 3, 4, 5, 6, 7, 8, 9,10, 12, 14, 16, 18, 20, 23, 26, 2
 .concat([500, 750, 1000, 1500, 2000, 3000, 5000, 10000])
 
 // Hardest difficulty - see if you can get these in under a few seconds!
-.concat([20000, 50000, 100000, 200000, 300000, 500000])
+.concat([20000, 50000, 100000, 200000, 500000])

@@ -23,13 +23,13 @@
 
     <script>
       // Mocha expects a global onload var here and automagically executes it on pageload
-      mocha.setup({globals: ['answer']});
+      mocha.setup({globals: ['answer', 'cache1', 'cache2']});
 
       onload = function(){
         var runner = mocha.run();
         runner.on('end', function() {
           if(!this.failures){
-            window.tweetit();
+            // window.tweetit();
           }
         });
       };

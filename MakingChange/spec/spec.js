@@ -35,9 +35,8 @@
     return (amount / 100).toFixed(2);
   };
 
-  generateTest = function(amount) {
+  generateTest = window.generateTest = function(amount) {
     it("Change for $" + amountInDollars(amount), function() {
-      console.log("!!!!test for", amount);
       expect(makeChange(amount)).to.equal(answers[amount]);
     });
   };
