@@ -16,42 +16,42 @@
 var coinValues = [10000, 5000, 2000, 1000, 500, 100, 50, 25, 10, 5, 1];
 
 // A recursive solution, as discussed at the meetup.
-// var makeChange = function(amount) {
+var makeChange = function(amount) {
 
-//   var cache = [];
-//   for (var i = 0; i <= coinValues.length; i++) {
-//     cache.push([]);
-//   }
+  var cache = [];
+  for (var i = 0; i <= coinValues.length; i++) {
+    cache.push([]);
+  }
 
-//   var recurse = function(amount, coins) {
-//     if (amount === 0) {
-//       return 1;
-//     } else if (coins.length === 1) {
-//       return 1;
-//     } else {
-//       if (cache[coins.length][amount] !== undefined) {
-//         return cache[coins.length][amount];
-//       }
+  var recurse = function(amount, coins) {
+    if (amount === 0) {
+      return 1;
+    } else if (coins.length === 1) {
+      return 1;
+    } else {
+      if (cache[coins.length][amount] !== undefined) {
+        return cache[coins.length][amount];
+      }
 
-//       var total = 0;
-//       var newCoins = coins.slice(1);
-//       total += recurse(amount, newCoins);
-//       if (coins[0] <= amount) {
-//         total += recurse(amount - coins[0], coins);
-//       }
-//       cache[coins.length][amount] = total;
-//       return total;
-//     }
-//   };
+      var total = 0;
+      var newCoins = coins.slice(1);
+      total += recurse(amount, newCoins);
+      if (coins[0] <= amount) {
+        total += recurse(amount - coins[0], coins);
+      }
+      cache[coins.length][amount] = total;
+      return total;
+    }
+  };
 
-//   for (var i = 0; i < amount; i++) {
-//     recurse(i, coinValues);
-//   }
+  for (var i = 0; i < amount; i++) {
+    recurse(i, coinValues);
+  }
 
-//   return recurse(amount, coinValues);
-// };
+  return recurse(amount, coinValues);
+};
 
-// Bonus: A dynamic programming solution!  About 2x as fast - see if you can figure it out!
+// Bonus: A dynamic programming solution!  About 5x as fast - see if you can figure it out!
 // Description: we write the problem as a table,
 // Each row represents the amount of change to make,
 // and the value at each column represents the highest coin
@@ -80,24 +80,25 @@ var coinValues = [10000, 5000, 2000, 1000, 500, 100, 50, 25, 10, 5, 1];
 // ...
 // We continue to exapand this table until we get to the row we want.  The answer is in the bottom right.
 
-var makeChange = function(amount) {
-  var coins = coinValues.slice().reverse();
-  var coinsLength = coins.length;
+// var makeChange = function(amount) {
+//   var coins = coinValues.slice().reverse();
+//   var coinsLength = coins.length;
 
-  var cache = [[]];
-  for (var i = 0; i < coinsLength; i++) {
-    cache[0].push(1);
-  }
-  for (var row = 1; row <= amount; row++) {
-    for (var col = 0; col < coinsLength; col++) {
-      var left = col > 0 ? cache[row][col-1] : 0;
-      var above = (cache[row - coins[col]] ? cache[row - coins[col]][col] : 0);
-      cache[row] = cache[row] || [];
-      cache[row][col] = left + above;
-    }
-  }
-  return cache[amount][coinsLength - 1];
-};
+//   var cache = [[]];
+//   for (var i = 0; i < coinsLength; i++) {
+//     cache[0].push(1);
+//   }
+
+//   for (var row = 1; row <= amount; row++) {
+//     cache[row] = [];
+//     for (var col = 0; col < coinsLength; col++) {
+//       var left = col > 0 ? cache[row][col-1] : 0;
+//       var above = row - coins[col] >= 0 ? cache[row - coins[col]][col] : 0;
+//       cache[row][col] = left + above;
+//     }
+//   }
+//   return cache[amount][coinsLength - 1];
+// };
 
 
 
