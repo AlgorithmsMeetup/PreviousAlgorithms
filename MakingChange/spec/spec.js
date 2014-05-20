@@ -37,6 +37,7 @@
 
   generateTest = function(amount) {
     it("Change for $" + amountInDollars(amount), function() {
+      console.log("!!!!test for", amount);
       expect(makeChange(amount)).to.equal(answers[amount]);
     });
   };
