@@ -26,52 +26,61 @@
 
   Just be sure to return the goal node once you've found it.
 
-*/
+ */
+
+//trampoline - we will use this to recurse
+function trampoline(n) {
+	while (n && n instanceof Function) {
+		n = n.apply(n.context, n.args);
+	}
+	return n;
+}
 
 window.solve = function(startNode) {
-  var open = [startNode];
-  var closed = [];
+	var open = [ startNode ];
+	var closed = [];
+	startNode.g = 0;
+	startNode.f = startNode.g + startNode.calcHeuristic();
+	var current = startNode;
+	// recursively find path
+	// this is the actual work...
+	function findNextStepInPath(current, open, closed) {
 
-  startNode.g = 0
-  startNode.f = startNode.calcHeuristic()
+		// look at open nodes for shortest path
+		var shortestIdx = 0;
+		for ( var i = 0; i < open.length; i++) {
+			if (open[i].f < open[shortestIdx].f) {
+				shortestIdx = i;
+			}
+		}
 
-  var current;
-  while (open.length) {
-    // Find the best node in the open set.
-    var best = 0;
-    for (var i = 0; i < open.length; i++) {
-      if (open[i].f < open[best].f) {
-        best = i;
-      }
-    }
-    var current = open.splice(best, 1).pop();
-    current.visit();
-    if (current.isGoal()) {
-      return current;
-    }
+		// remove shortest from open set, add to closed set
+		current = open.splice(shortestIdx, 1).pop();
+		closed.push(current);
 
-    var neighbors = current.neighbors();
-    for (var i = 0; i < neighbors.length; i++) {
-      var neighbor = neighbors[i];
-      // Only process nodes we haven't already processed.
-      if (neighbor.indexIn(closed) === -1) {
+		// tell visualizer we have visited current node
+		current.visit();
 
-        // See if this node is already in the open set.
-        var indexInOpenSet = neighbor.indexIn(open);
+		// are we done?
+		if (current.isGoal()) {
+			return current;
+		}
 
-        // If it's not in the open set right now.
-        if (indexInOpenSet === -1) {
+		// assign values to neighbors
+		var neighbors = current.neighbors();
+		for ( var i = 0; i < neighbors.length; i++) {
+			var nextNode = neighbors[i];
+			//only add process if we haven't looked at nextnode yet...
+			if (nextNode.indexIn(closed) === -1 && nextNode.indexIn(open) === -1) {
+				nextNode.g = current.g + 1;
+				nextNode.f = nextNode.g + nextNode.calcHeuristic();
+				open.push(nextNode);
+			}
+		}
+		//recursively call function again (note bind to keep stack from growing)
+		return findNextStepInPath.bind(null, current, open, closed);
+	}
+	//recursively call function again (note bind to keep stack from growing)
+	return trampoline(findNextStepInPath.bind(null, current, open, closed));
 
-          open.push(neighbor);
-          neighbor.g = current.g + 1;
-          neighbor.f = neighbor.g + neighbor.calcHeuristic();
-
-        }
-      }
-    }
-    closed.push(current);
-  }
-};
-
-
-
+}
