@@ -28,6 +28,9 @@ var makeChange = function(amount) {
 //returns array of array-of-possible-combinations
 var makeSomeChange = function(amount, coins) {
     coins = coins || coinValues;
+    if (cache[coins.length][amount]) {
+      result = cache[coins.length][amount];
+    }
     var output = [];
     for(var i = 0; i<coins.length; i++){
       var coinValue = coins[i];
@@ -44,6 +47,7 @@ var makeSomeChange = function(amount, coins) {
         }
       }
     }
+    cache[coins.length][amount] = output;
     return output;
 };
 
