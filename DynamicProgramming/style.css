@@ -1,0 +1,65 @@
+body {
+  font-family: 'Courier' monospace;
+  background-color: #222;
+  color: #9F9;
+  text-align: center;
+}
+
+.container {
+  margin: 20px auto;
+}
+
+.cell {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 20px;
+  font-size: 12px;
+}
+
+.cell.mySolution {
+  background-color: #444;
+}
+
+.cell.theirSolution {
+  color: #f99;
+}
+
+.cell.mySolution.theirSolution {
+  color: #9ff;
+}
+
+.header {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.reset {
+  margin: 20px;
+  border: 1px solid #9f9;
+  font-family: courier;
+  font-size: 20px;
+  background-color: #222;
+  color: #9F9;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background-color: #333;
+}
+
+.yours {
+  color: #f99;
+}
+.yours.correct {
+  color: #9f9;
+}
+
+.optimal.correct {
+  color: #9ff;
+}
+
+
+
+
+
