@@ -1,0 +1,75 @@
+Working with git
+----------------
+by: <a href="https://github.com/ErinJoan">Erin Joan Snyder</a>
+
+
+Greetings explorer! Currently you are on Github.com, a place that stores your code in repositories (or repos). Github is different from git, which is a source code management system. Basically, git uses Linux commands to track your work and manage your work in association to the work of your team members.
+
+
+What if I don't know Linux?
+---------------------------
+
+No problem! It's not as complicated as it seems. I mean, I figured it out with absolutely NO prior experience in any STEM fields. I didn't even know what the Terminal was! (Don't freak out if you don't know what the Terminal is, I'll cover that!)
+
+So, what do I do?
+-----------------
+
+* Let's start from the very, very beginning. You are currently on Github, and you want to use this HR-Algorithms-Meetup repo.
+* The first step is to open the Terminal on your computer, create a file for your work and cd into it. Use 'git clone https://github.com/MrNice/HR-Algorithms-Meetup.git' to clone the repo onto your local machine. If that sounds like gibberish, it's okay. Let's break it down into smaller pieces:
+- If you're on a Mac, use Spotlight (the magnifying glass in the upper right corner of your computer screen) to search for Terminal. Open up that app. If you haven't done anything with Terminal before, a black window will open with white text on it, ending in something like this :>
+- You are most likely in your computer's root directory. You could make a folder here, but it might be difficult to find later. Just for right now, let's go to the desktop and make a folder.
+- In your Terminal, type the following: cd Desktop
+- 'cd' means 'change directory'. You're moving from the root directory to the Desktop directory.
+- Now that we're on the Desktop, let's make a new folder on our computer. Type the following: mkdir Algorithm_Meetup
+- 'mkdir' means 'make directory' and creates a new, empty folder/directory.
+- Now that we've made a directory, let's use 'cd' again to move into that new empty folder.
+- Type the following: cd Algorithm_Meetup
+- Great! You're now capable of creating and moving into directories! High-five!
+- Now let's put something into that empty directory. Go back to the Algorithm's repo on Github. On the right side, you should see 'HTTPS clone URL' over a window with the following URL in it: https://github.com/MrNice/HR-Algorithms-Meetup.git
+- Clicking the button on the right side that looks like an arrow on a clipboard will copy the URL.
+- In your Terminal, type the following: git clone https://github.com/MrNice/HR-Algorithms-Meetup.git
+- You can just type 'git clone ' and then paste the URL that you just copied.
+- When you see 'Checking connectivity... done.' you know that you've successfully cloned the repo onto your local machine.
+- What does cloning actually do? It creates a copy of the repo, as it exists right this second on Github, and puts that copy onto your computer. Now you're able to work on it whenever you want!
+- Now that you've cloned the repo into your Algorithm_Meetup directory, we need to use 'cd' again to get into that folder. But what if we're not sure of the folder's name? We can use 'ls' (which, for all intents and purposes, means 'list stuff') to show us what files are in our current directory.
+* In the Terminal, type the following: ls
+* You should see a directory called 'HR-Algorithms-Meetup'. Let's get in there!
+* Type the following: cd HR-Algorithms-Meetup
+* All this time we've been on the master branch. If git is a tree, master is the trunk. We don't want to work on master. I'm going to repeat that. WE DON'T WANT TO WORK ON MASTER!!!! We want to create a branch of our very own! So let's do that using 'git checkout -b'      (-b means branch)
+* Type the following into Terminal: git checkout -b erin-is-great (Please use your own name as the branch name.)
+- Now we are on our own branch! All the work we do can be kept separate of master which is good in case we mess up. Everyone should have their own branch to work on.
+* Now that we're on our own branch and we're in the cloned directory, let's see what's in there! Type the following into the Terminal: ls
+* All kinds of files and directories popped up! Awesome! We can either use the command 'cd' to move into a directory, or we use the command 'open' to open one of the files in our default text editor. Let's move into the Solutions folder.
+* Type either: cd solutuions
+* If you want to create a brand new file, use the command 'touch'. Normally you would create a new file to do your work in, but for now let's have some fun! Type the following into Terminal: touch pictures-of-cats.mdown
+* We just created a new empty file. Let's open it! Type the following: open pictures-of-cats.mdown
+* Let's add a picture of a cat to our new file!
+- http://placekitten.com/ is the best place to get free photos of cats. Add two numbers to the end of that URL to get a photo of a kitten that is the dimensions of the numbers you entered. For example, http://placekitten.com/200/300 will give you a photo of a kitten that is 200 pixels wide and 300 pixels high.
+- In your text editor, type the following: ![Look at this awesome kitten!](http://placekitten.com/400/300 "photo of an awesome kitten")
+- Save your file
+* We've made a change to the original HR-Algorithms-Meetup repo that we cloned down. It now has this new file called pictures-of-cats.mdown. Our file is pretty much the greatest thing ever, and we want to share it, so let's push it up to Github so that everyone in the repo can view it!
+* First, we want to make sure our local version of master is up to date. If someone else cloned the HR-Algorithms-Meetup repo and added a file called pictures-of-puppies (or if anyone else submitted their own file in the Solutions folder), our changes would conflict with their changes! Luckily, we can prevent this!
+* Step 1 is to stage our current work. We want to add our work to the staging area using 'git add'. Type the following into the Terminal: git add pictures-of-cats.mdown
+* Next we need to commit our files. Your commits are a history of your changes. You should be able to look at your commit history and read the story of your code. Lots of programmers are bad at writing commits, and end up with things like "tests pass. good enough." or "asdmsafpnvirepbnirn fd this shit is stupid and I hate it!!!!!!!!!". Instead, use git commit to record what you did, and what you'll do next.
+- Type the following into your Terminal: git commit -m "This is Erin Snyder's work. I copy-pasted a picture of a cat. It's pretty rad."
+- The '-m' means message and everything in quotes is your commit message.
+* Now that our work is saved and committed, we need to update our master branch to prevent any conflicts with our other team members' work. Let's use 'git checkout' to switch between branches.
+- Type the following into the Terminal: git checkout master
+- This is the version of the repo that we created when we did 'git clone'. It has not been updated since we cloned it, so let's update it now.
+- Type the following into the Termainal: git pull origin master
+- This command does a few things all at once. "Pull" is combining the commands "fetch" and "merge". It's grabbing the most recently updated version of the master branch of the HR-Algorithms-Meetup repo, and pulling it down to your computer. It's merging the new files with the old files, so that everything is up to date.
+- 'origin' refers to Github, because that's where this repo originated. We cloned it from Github and now we're telling it to visit the same original source in order to update our files.
+- And of course 'master' is that main all-powerful branch that we created our own branch off of.
+* So now master is updated. Yay! Let's switch back to our own branch using 'git checkout' and then merge the newest version of master in our branch so that our own branch is updated with any new changes.
+- Type the following into the Terminal: git checkout erin-is-great   (or whatever you named your branch)
+- Type the following into the Terminal: git merge master
+* Now your branch has all of your own files, plus all of the updated files from master. Everything is great!
+* Let's push our branch up to Github so that we can share it with the world! Type the following into the Terminal: git push origin erin-is-great    (or whatever you named your branch)
+- The 'push' command is doing the opposite of 'pull.' Instead of bringing something down from Github onto your computer, we're pushing something up from our computer to Github.
+- 'origin' again refers to the Github repo that we originally cloned
+- 'erin-is-great' is the name of our branch. We never ever EVER push to the master branch! Always push to your own branch and then issue a pull request if you would like your work to be merged into master. I'll say it again. WE NEVER EVER EVER PUSH TO THE MASTER BRANCH! Cool? Cool.
+* On the Github repo on the right side, you'll see a tab that says 'Pull requests'. Click on that.
+- There's a green button in the right corner that says "New pull request". Click on that.
+- There are 2 drop-down windows, 'base' and 'compare'. Right now both are set to master, but we want to compare our new branch with the master branch. Change 'compare' to your branch and click the green "Create Pull Request" button.
+* You did it!!! You cloned a repo, created a branch, prevented merge conflicts and issued a pull request. You're a master of git!
+* Feel free to ask for help with all of this. Git is tricky. Coming from a communications background, it took me almost a year to get comfortable using git. Just stay off master, and you'll be just fine! :)
