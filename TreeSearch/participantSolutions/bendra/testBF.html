@@ -1,0 +1,25 @@
+<html>
+<head>
+<script src="src/tree.js" /></script>
+<script src="src/BFselect.js" /></script>
+
+</head>
+<body>
+	<h1>hi mom</h1>
+
+	<script language="javascript">
+var exampleTree = new Tree(1);
+var branch2= exampleTree.addChild(2);
+var branch3= exampleTree.addChild(3);
+var leaf4 = branch2.addChild(4);
+
+var leaf5 = branch2.addChild(5);
+var leaf6 = branch2.addChild(6);
+var leaf7 = branch2.addChild(7);
+var filterFunction = function(value, depth){
+	return value % 2 === 1;
+}
+console.log(exampleTree.BFSelect(filterFunction));
+</script>
+</body>
+</html>
