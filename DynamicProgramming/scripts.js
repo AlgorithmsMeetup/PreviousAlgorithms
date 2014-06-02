@@ -10,7 +10,7 @@
 
   var calcInputTotal = function(solution, matrix) {
     if (!solution) {
-      return "Error in calculation";
+      return "No path given";
     }
     var current = solution[0];
     for (var i = 1; i < solution.length; i++) {
@@ -119,6 +119,7 @@
     try {
       theirSolution = findMinimumPath(clone(input));
     } catch (e) {
+      console.error(e.stack);
       theirSolution = null;
     }
     var mySolution = solve(clone(input));
