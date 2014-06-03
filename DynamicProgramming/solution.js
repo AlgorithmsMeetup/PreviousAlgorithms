@@ -21,30 +21,45 @@ var size = 15;
 
 var findMinimumPath = function(input) {
 
-  // This is the "greedy" solution - it's not very good...
-  // You should scrap it and start over with a dynamic programming solution!
-  // But it might be of some help to you!
+  // Dynamic programming woo!
+  for (var row = size - 1; row > 0; row--) {
+    for (var col = 0; col < size; col++) {
 
-  var solution = [];
-  var currentCol = 0;
-  for (var i = 1; i < size; i++) {
-    if (input[0][i] < input[0][currentCol]) {
-      currentCol = i;
+      // `Choices` are three consecutive squares.
+      var currentRow = input[row];
+      var choices = currentRow.slice(col - 1, col + 2);
+
+      // Update the square above these choices.
+      input[row - 1][col] += Math.min.apply(this, choices);
     }
   }
-  solution.push(currentCol);
-  for (var y = 1; y < size; y++) {
-    var currentRow = input[y];
-    var left = currentRow[currentCol - 1] || Infinity;
-    var below = currentRow[currentCol];
-    var right = currentRow[currentCol + 1] || Infinity;
-    var min = Math.min(left, below, right);
-    if (min == left) {
-      currentCol--;
-    } else if (min == right) {
-      currentCol++;
+
+  // Below is just the greedy algorithm, on our updated array!
+
+  // Find the minimum square to start with, in the first row.
+  var path = [];
+  for (var i = 1, col = 0; i < size; i++) {
+    if (input[0][i] < input[0][col]) {
+      col = i;
     }
-    solution.push(currentCol);
   }
-  return solution;
+  path.push(col);
+  for (var row = 1; row < size; row++) {
+
+    // Find the totals in the three squares below us.
+    var currentRow = input[row];
+    var choices = currentRow.slice(col - 1, col + 2);
+    var min = Math.min.apply(this, choices);
+
+    // If the choice is to the left or right, change the current column
+    if (min == choices[0]) {
+      col--;
+    } else if (min == choices[2]) {
+      col++;
+    }
+
+    // Put the current column in our path.
+    path.push(col);
+  }
+  return path;
 };
