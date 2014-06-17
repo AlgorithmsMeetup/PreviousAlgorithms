@@ -30,13 +30,13 @@ var sortingTest = function(list) {
   });
 };
 
-describe("has the heap property with a list", function() {
-  insertTest([1]);
-  insertTest([1, 2, 3, 4]);
-  insertTest([2, 1]);
-  insertTest([5, 3, 4, 2, 1]);
-  insertTest([46, 57, 23, 14, 43, 79, 100]);
-});
+// describe("has the heap property with a list", function() {
+//   insertTest([1]);
+//   insertTest([1, 2, 3, 4]);
+//   insertTest([2, 1]);
+//   insertTest([5, 3, 4, 2, 1]);
+//   insertTest([46, 57, 23, 14, 43, 79, 100]);
+// });
 
 describe("can sort a list with heap sort", function() {
   sortingTest([1, 2, 3]);
