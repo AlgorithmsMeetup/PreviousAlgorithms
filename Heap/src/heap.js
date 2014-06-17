@@ -20,8 +20,10 @@ Heap.prototype._swap = function(index1, index2) {
     this._data[index1] = this._data[index2];
     this._data[index2] = temp;
 };
-Heap.prototype.show = function() {
-    console.log(this._data);
+Heap.prototype.show = function(noLog) {
+    if (!noLog) {
+        console.log(this._data);
+    }
     return this._data;
 };
 
@@ -31,10 +33,8 @@ Heap.prototype.peek = function() {
 };
 
 Heap.prototype.insert = function(element) {
-
 };
 
 Heap.prototype.extract = function() {
-
 };
 
