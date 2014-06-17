@@ -33,6 +33,7 @@ Heap.prototype.peek = function() {
 };
 
 Heap.prototype.insert = function(element) {
+
 };
 
 Heap.prototype.extract = function() {
