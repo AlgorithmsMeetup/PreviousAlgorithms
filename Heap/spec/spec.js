@@ -1,19 +1,19 @@
-var insertTest = function(list) {
-  it("correctly inserts " + JSON.stringify(list), function() {
-    var heap = new Heap();
-    var len = list.length;
-    for (var i = 0; i < len; i++) {
-      heap.insert(list[i]);
-    }
-    var data = heap.show();
-    for (var i = 0; i < len; i++) {
-      expect(data[i]).to.exist();
-      if (i < len - 1) {
-        expect(data[i]).to.be.under(data[i+1]);
-      }
-    }
-  });
-};
+// var insertTest = function(list) {
+//   it("correctly inserts " + JSON.stringify(list), function() {
+//     var heap = new Heap();
+//     var len = list.length;
+//     for (var i = 0; i < len; i++) {
+//       heap.insert(list[i]);
+//     }
+//     var data = heap.show();
+//     for (var i = 0; i < len; i++) {
+//       expect(data[i]).to.exist();
+//       if (i < len - 1) {
+//         expect(data[i]).to.be.under(data[i+1]);
+//       }
+//     }
+//   });
+// };
 
 var sortingTest = function(list) {
   it("sorts " + JSON.stringify(list), function() {
