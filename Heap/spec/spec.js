@@ -23,7 +23,6 @@ var extractTest = function(list) {
       expect(element).to.not.be(null);
     }
     var extra = heap.extract();
-    console.log(extra);
     var noMore = (typeof extra === "undefined" || extra === null);
     expect(noMore).to.be(true);
   });
