@@ -1,0 +1,9 @@
+.photo {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+td {
+  padding: 25px 10px;
+  text-align: center;
+}
