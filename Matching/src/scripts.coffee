@@ -1,28 +1,28 @@
 generatePrefs = (size) ->
   humanNames = [
-    "Bob",
-    "Sally",
-    "James",
+    "Tadd",
     "Sandra",
+    "Edward",
+    "Colleen",
     "Colin",
-    "Peggy",
-    "Amir",
-    "Lee",
+    "Bethany",
+    "Gilford",
+    "Ming",
     "Fredrick",
-    "Fanny"
+    "Megan"
   ]
 
   puppyNames = [
-    "Spike",
-    "Rover",
-    "Spot",
+    "Buster",
+    "Snuggles",
+    "Ike",
     "Bernie",
     "Breakfast",
-    "Snoopy",
+    "Napoleon",
     "Rex",
-    "Lassie",
-    "Jess",
-    "Fido"
+    "Louie",
+    "Sprinkles",
+    "Jess"
   ]
 
   while humanNames.length < size
@@ -109,8 +109,8 @@ render = (solution, prefs, result) ->
 
     $humans.append $("<td><img class='photo' src='img/#{human}.jpeg'/></td>")
     $puppies.append $("<td><img class='photo' src='img/#{puppy}.jpeg'/></td>")
-    $humanRankings.append $("<td>#{prefs.humans[human].indexOf(puppy)}</td>")
-    $puppyRankings.append $("<td>#{prefs.puppies[puppy].indexOf(human)}</td>")
+    $humanRankings.append $("<td><strong>#{human}</strong><br><em>#{prefs.humans[human].indexOf(puppy)} points</em></td>")
+    $puppyRankings.append $("<td><strong>#{puppy}</strong><br><em>#{prefs.puppies[puppy].indexOf(human)} points</em></td>")
 
   $(".happiness").text(result.happiness)
   $(".satisfaction").text(result.satisfaction.toFixed(2))
@@ -123,18 +123,23 @@ window.initGraphical = () ->
   render(solution, prefs, result)
 
 window.initMultiple = () ->
-  size = 50
-  trialCount = 10
+  size = Number($('.sizeSelector').val())
+  trials = Number($('.trialsSelector').val())
+
+  $('.size').text(size)
+  $('.trials').text(trials)
+
+  console.log size, trials
   satisfaction = 0
-  _(trialCount).times () ->
+  _(trials).times () ->
     prefs = generatePrefs(size)
     solution = window.solve(JSON.parse(JSON.stringify(prefs)), size)
     result = evalSolution(prefs, solution, size)
     satisfaction += result.satisfaction
 
-  $(".trials").text(trialCount)
-  $(".satisfaction").text(satisfaction/trialCount)
+  $(".satisfaction").text(satisfaction/trials)
 
+$('body').on('change', '.sizeSelector, .trialsSelector', _.throttle(window.initMultiple, 1000))
 
 
 
