@@ -50,13 +50,66 @@ describe("Basic building blocks", function() {
       var result = reduce([1, 2, 3, 4, 5], function(partial, elem) {return partial + elem}, 0)
       expect(result).to.equal(15);
     });
-    
+
     it("concats strings", function() {
       var result = reduce(["bi", "bim", "bap"], function(partial, elem) {return partial + elem}, '');
       expect(result).to.equal("bibimbap");
-    })
+    });
   });
 });
+
+checkIfFunctionalSolution = function(func) {
+  func = func.toString();
+  expect(func).to.not.contain("for(");
+  expect(func).to.not.contain("for (");
+  expect(func).to.not.contain("if(");
+  expect(func).to.not.contain("if (");
+  expect(func).to.not.contain("while(");
+  expect(func).to.not.contain("while (");
+};
+
+describe("Applied problems", function() {
+  it("Sum an array", function() {
+    expect(sumOfArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).to.be(55);
+    checkIfFunctionalSolution(sumOfArray);
+  });
+
+  it("All numbers that equal their position in the array", function() {
+    assertArrayEquals(positionMatch([0, 2, 1, 4, 3, 5]), [1, 5]);
+    checkIfFunctionalSolution(positionMatch);
+  });
+
+  it("Counting the number of unique first names in this sequence", function() {
+    var result = uniqueFirstNames(["John Bonham", "Roger Waters", "John Lennon", "Nick Moon", "Roger Daltry", "Nick Cave", "Jimmy Hendrix", "Jimmy Buffet", "Jimmy Page", "Frank Zappa"]);
+    expect(result).to.equal(5);
+    checkIfFunctionalSolution(uniqueFirstNames);
+  });
+
+  it("Palindrome numbers", function() {
+    expect(palindromeNumbers([1, 12, 131, 34534, 34543, 198, 19891])).to.be([131, 34543, 19891]);
+    checkIfFunctionalSolution(palindromeNumbers);
+  });
+
+  it("Indexing strings by their length", function() {
+    var result = indexByLength(["hello", "satan", "this", "is", "your", "dog"]);
+    var answer = [undefined, undefined, ["is"], ["dog"], ["this", "your"], ["hello", "satan"]];
+    expect(JSON.stringify(result)).to.equal(JSON.stringify(answer));
+    checkIfFunctionalSolution(indexByLength);
+  });
+
+  it("Returns the names of all people over 65 or with two or more children", function() {
+    var people = [
+      {name: "Fred", age: 74, children: ["Bob", "Jane"]},
+      {name: "Sal", age: 59, children: ["Sam", "Sally"]},
+      {name: "Rita", age: 66, children: ["Rob"]},
+      {name: "Linda", age: 56, children: ["Rick", "James", "Jose"]}
+    ];
+    var filtered = olderOrWithChildren(people);
+    assertArrayEquals(filtered, ["Fred", "Sal", "Linda"]);
+    checkIfFunctionalSolution(olderOrWithChildren);
+  });
+});
+
 
 describe("More specialized functions", function() {
 
@@ -85,53 +138,4 @@ describe("More specialized functions", function() {
     expect(contains([1, 2, 3, 4], 0)).to.be(false);
   });
 
-});
-
-checkIfFunctionalSolution = function(func) {
-  func = func.toString()
-  expect(func).to.not.contain("for(");
-  expect(func).to.not.contain("for (");
-  expect(func).to.not.contain("if(");
-  expect(func).to.not.contain("if (");
-  expect(func).to.not.contain("while(");
-  expect(func).to.not.contain("while (");
-}
-
-describe("Applied problems", function() {
-  it("Sum an array", function() {
-    expect(sumOfArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).to.be(55);
-    checkIfFunctionalSolution(sumOfArray);
-  });
-
-  it("All numbers that equal their position in the array", function() {
-    assertArrayEquals(positionMatch([0, 2, 1, 4, 3, 5]), [1, 5]);
-    checkIfFunctionalSolution(positionMatch);
-  });
-
-  it("Counting the number of unique first names in this sequence", function() {
-    assertArrayEquals(uniqueFirstNames(["John Bonham", "Roger Waters", "John Lennon", "Nick Moon", "Roger Daltry", "Nick Cave", "Jimmy Hendrix", "Jimmy Buffet", "Jimmy Page", "Frank Zappa"]), 5);
-    checkIfFunctionalSolution(uniqueFirstNames);
-  });
-
-  it("Palindrome numbers", function() {
-    expect(palindromeNumbers([1, 12, 131, 34534, 34543, 198, 19891])).to.be([131, 34543, 19891]);
-    checkIfFunctionalSolution(palindromeNumbers);
-  });
-
-  it("Indexing strings by their length", function() {
-    assertArrayEquals(indexByLength(["hello", "satan", "this", "is", "your", "dog"]), [undefined, undefined, ["is"], ["dog"], ["this", "your"], ["hello", "satan"]]);
-    checkIfFunctionalSolution(indexByLength);
-  });
-
-  it("Returns the names of all people over 65 or with two or more children", function() {
-    var people = [
-      {name: "Fred", age: 74, children: ["Bob", "Jane"]},
-      {name: "Sal", age: 59, children: ["Sam", "Sally"]},
-      {name: "Rita", age: 66, children: ["Rob"]},
-      {name: "Linda", age: 56, children: ["Rick", "James", "Jose"]}
-    ]
-    var filtered = olderOrWithChildren(people)
-    assertArrayEquals(filtered, ["Fred", "Sal", "Linda"]);
-    checkIfFunctionalSolution(olderOrWithChildren);
-  });
 });

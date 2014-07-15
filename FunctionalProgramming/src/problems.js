@@ -19,27 +19,6 @@ var reduce = function(input, iterator, initialValue) {
 
 };
 
-
-/* -------------------------- */
-/* MORE SPECIALIZED FUNCTIONS */
-/* -------------------------- */
-
-var every = function(input, iterator) {
-
-};
-
-var some = function(input, iterator) {
-
-};
-
-var unique = function(input) {
-
-};
-
-var flatten = function(input) {
-
-};
-
 /* ---------------- */
 /* APPLIED PROBLEMS */
 /* ---------------- */
@@ -80,6 +59,39 @@ var olderOrWithChildren = function(input) {
 
 };
 
+
+
+/* -------------------------- */
+/* MORE SPECIALIZED FUNCTIONS */
+/* -------------------------- */
+
+// Given an iterator that returns true or false, return true
+// if every input element passes the test and false if at least one fails.
+var every = function(input, iterator) {
+
+};
+
+// Given an iterator that returns true or false, return true
+// if at least one input element passes the test and false if all of them fail.
+var some = function(input, iterator) {
+
+};
+
+// Returns an array with duplicate elements in the input removed.
+var unique = function(input) {
+
+};
+
+// un-nests an array.  that is, flatten([[1, 2], [3], [[4]]])
+// becomes [1, 2, 3, 4]
+var flatten = function(input) {
+
+};
+
+// returns true if the input contains the target, and false if not.
+var contains = function(input, target) {
+
+};
 
 
 
