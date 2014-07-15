@@ -58,6 +58,38 @@ describe("Basic building blocks", function() {
   });
 });
 
+
+
+describe("More specialized functions", function() {
+
+  it("every", function() {
+    expect(every([1, 2, 3, 4, 5, 6], function(x) {return x < 10;})).to.be(true);
+    expect(every([1, 2, 3, 4, 25, 6], function(x) {return x < 10;})).to.be(false);
+  });
+
+  it("some", function() {
+    expect(every([1, 2, 3, 4, 25, 6], function(x) {return x > 10;})).to.be(true);
+    expect(every([1, 2, 3, 4, 5, 6], function(x) {return x > 10;})).to.be(false);
+  });
+
+  it("unique", function() {
+    var result = unique(["a", "ab", "a", "b", "ab", "ba"]);
+    assertArrayEquals(result, ["a", "ab", "b", "ba"]);
+  });
+
+  it("flatten", function() {
+    var result = flatten([1, 2, [3, [4]]]);
+    assertArrayEquals(result, [1, 2, 3, 4]);
+  });
+
+  it("contains", function() {
+    expect(contains([1, 2, 3, 4], 1)).to.be(true);
+    expect(contains([1, 2, 3, 4], 0)).to.be(false);
+  });
+
+});
+
+
 checkIfFunctionalSolution = function(func) {
   func = func.toString();
   expect(func).to.not.contain("for(");
@@ -108,34 +140,4 @@ describe("Applied problems", function() {
     assertArrayEquals(filtered, ["Fred", "Sal", "Linda"]);
     checkIfFunctionalSolution(olderOrWithChildren);
   });
-});
-
-
-describe("More specialized functions", function() {
-
-  describe("every", function() {
-    expect(every([1, 2, 3, 4, 5, 6], function(x) {return x < 10;})).to.be(true);
-    expect(every([1, 2, 3, 4, 25, 6], function(x) {return x < 10;})).to.be(false);
-  });
-
-  describe("some", function() {
-    expect(every([1, 2, 3, 4, 25, 6], function(x) {return x > 10;})).to.be(true);
-    expect(every([1, 2, 3, 4, 5, 6], function(x) {return x > 10;})).to.be(false);
-  });
-
-  describe("unique", function() {
-    var result = unique(["a", "ab", "a", "b", "ab", "ba"]);
-    assertArrayEquals(result, ["a", "ab", "b", "ba"]);
-  });
-
-  describe("flatten", function() {
-    var result = flatten([1, 2, [3, [4]]]);
-    assertArrayEquals(result, [1, 2, 3, 4]);
-  });
-
-  describe("contains", function() {
-    expect(contains([1, 2, 3, 4], 1)).to.be(true);
-    expect(contains([1, 2, 3, 4], 0)).to.be(false);
-  });
-
 });
