@@ -30,7 +30,7 @@ describe("Basic building blocks", function() {
 
   describe("filter", function() {
     it("even numbers", function() {
-      var result = filter([1, 2, 3, 4, 5], function(x) {return x % 1 === 0;});
+      var result = filter([1, 2, 3, 4, 5], function(x) {return x % 2 === 0;});
       assertArrayEquals(result, [2, 4]);
     });
 
@@ -41,7 +41,7 @@ describe("Basic building blocks", function() {
 
     it("can use the index", function() {
       var result = filter([1, 2, 3, 4, 5, 6], function(x, i) {return i === 3 || i === 2;});
-      assertArrayEquals([3, 4]);
+      assertArrayEquals(result, [3, 4]);
     });
   });
 
@@ -75,7 +75,7 @@ describe("Applied problems", function() {
   });
 
   it("All numbers that equal their position in the array", function() {
-    assertArrayEquals(positionMatch([0, 2, 1, 4, 3, 5]), [1, 5]);
+    assertArrayEquals(positionMatch([0, 2, 1, 4, 3, 5]), [0, 5]);
     checkIfFunctionalSolution(positionMatch);
   });
 
