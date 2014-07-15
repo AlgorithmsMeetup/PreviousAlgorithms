@@ -86,7 +86,7 @@ describe("Applied problems", function() {
   });
 
   it("Palindrome numbers", function() {
-    expect(palindromeNumbers([1, 12, 131, 34534, 34543, 198, 19891])).to.be([131, 34543, 19891]);
+    assertArrayEquals(palindromeNumbers([1, 12, 131, 34534, 34543, 198, 19891]), [1, 131, 34543, 19891]);
     checkIfFunctionalSolution(palindromeNumbers);
   });
 
