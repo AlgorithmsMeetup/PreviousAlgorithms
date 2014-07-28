@@ -2,9 +2,9 @@ describe("Quadtree tests", function() {
 
   var quadtree, bigFilledQuadtree;
   before(function() {
-    bigFilledQuadtree = new Quadtree(new Box(-10, -10, 610, 610));
-    for (var x = 0; x < 600; x++) {
-      for (var y = 0; y < 600; y++) {
+    bigFilledQuadtree = new Quadtree(new Box(-10, -10, 510, 510));
+    for (var x = 0; x <= 500; x++) {
+      for (var y = 0; y <= 500; y++) {
         bigFilledQuadtree.insert(new Point(x, y));
       }
     }
@@ -145,7 +145,7 @@ describe("Quadtree tests", function() {
       expect(points).to.have.length(75);
     });
 
-    it("Works quickly.  Properly searches 360000 points, finding 3000.", function() {
+    it("Works on large trees.  Properly searches 360000 points, finding 3000.", function() {
       var points = bigFilledQuadtree.findPointsWithin(new Box(220, 280, 319, 309));
       expect(points.length).to.be(3000);
     });
@@ -192,18 +192,18 @@ describe("Quadtree tests", function() {
       expectPoint(point, 5, 0);
     });
 
-    it("If the quadtree has all points with x and y between 0 and 599, finds (599, 494) as the closest point to (625, 494)", function() {
-      var point = bigFilledQuadtree.findNearestPointTo(new Point(625, 494));
-      expectPoint(point, 599, 494);
+    it("If the quadtree has all points with x and y between 0 and 500, finds (500, 494) as the closest point to (1000, 494)", function() {
+      var point = bigFilledQuadtree.findNearestPointTo(new Point(1000, 494));
+      expectPoint(point, 500, 494);
     });
 
-    it("If the quadtree has all points with x and y between 0 and 599, finds (173, 329) as the closest point to (173.4, 328.9)", function() {
+    it("If the quadtree has all points with x and y between 0 and 500, finds (173, 329) as the closest point to (173.4, 328.9)", function() {
       var point = bigFilledQuadtree.findNearestPointTo(new Point(173.4, 328.9));
       expectPoint(point, 173, 329);
     });
 
-    it("Performs many finds quickly without error - 20 queries for random points (should be under 2000 ms)", function() {
-      for (var i = 0; i < 20; i++) {
+    it("Works quickly. Performs 100 queries for random points (should be under 1000 ms)", function() {
+      for (var i = 0; i < 100; i++) {
         var x = (_.random(1000, 5000))/10 - 0.05;
         var y = (_.random(1000, 5000))/10 - 0.05;
         var point = bigFilledQuadtree.findNearestPointTo(new Point(x, y));
