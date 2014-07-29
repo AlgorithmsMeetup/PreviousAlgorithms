@@ -146,8 +146,10 @@ describe("Quadtree tests", function() {
     });
 
     it("Works on large trees.  Properly searches 360000 points, finding 3000.", function() {
+      var startTime = Date.now();
       var points = bigFilledQuadtree.findPointsWithin(new Box(220, 280, 319, 309));
       expect(points.length).to.be(3000);
+      expect(Date.now() - startTime).to.be.below(100);
     });
   });
 
@@ -203,12 +205,14 @@ describe("Quadtree tests", function() {
     });
 
     it("Works quickly. Performs 100 queries for random points (should be under 1000 ms)", function() {
+      var startTime = Date.now();
       for (var i = 0; i < 100; i++) {
         var x = (_.random(1000, 5000))/10 - 0.05;
         var y = (_.random(1000, 5000))/10 - 0.05;
         var point = bigFilledQuadtree.findNearestPointTo(new Point(x, y));
         expectPoint(point, Math.round(x), Math.round(y));
       }
+      expect(Date.now() - startTime).to.be.below(1000);
     });
   });
 
