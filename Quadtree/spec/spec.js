@@ -16,17 +16,17 @@ describe("Quadtree tests", function() {
   });
 
   describe("#insert", function() {
-    it("inserts 1 point without error", function() {
+    it("calls 'insert' once without error", function() {
       quadtree.insert(new Point(1, 1));
     });
 
-    it("inserts 3 points without error", function() {
+    it("calls 'insert' 3 times without error", function() {
       quadtree.insert(new Point(1, 1));
       quadtree.insert(new Point(0, 0));
       quadtree.insert(new Point(-2, 4));
     });
 
-    it("inserts 100 points without error", function() {
+    it("calls 'insert' 100 times without error", function() {
       var x, y;
       for (var i = 0; i < 100; i++) {
         x = _.random(-10, 10);
@@ -35,7 +35,7 @@ describe("Quadtree tests", function() {
       }
     });
 
-    it("inserts 40000 points without error", function() {
+    it("calls 'insert' 40000 times without error", function() {
       var quadtree = new Quadtree(new Box(-10, -10, 310, 310));
       for (var x = 0; x < 300; x++) {
         for (var y = 0; y < 300; y++) {
