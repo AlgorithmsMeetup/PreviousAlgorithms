@@ -7,6 +7,7 @@
 <body>
   <div class='graph container'>
     <div id="box" class="jxgbox" style="width:500px; height:500px;"></div>
+    <canvas id="HitsAndMisses"  width="500" height="500px"></canvas>
   </div>
   <script src="lib/jquery.min.js"></script>
   <script src="lib/jsxgraphcore.js"></script>
@@ -23,12 +24,12 @@
     </section>
     <section>
       <span>Lower Boundary:</span><br>
-      <label for='gt1'>Y &gt; </label><input type='text' id='gt1' class='function gt'></input><br>
+      <label for='gt1'>Y &gt; </label><input type='text' id='gt1' class='function gt' value="x*x + - 4"></input><br>
       <label for='gt2'>Y &gt; </label><input type='text' id='gt2' class='function gt'></input><br>
     </section>
     <section>
       <span>Upper Boundary:</span><br>
-      <label for='lt1'>Y &lt; </label><input type='text' id='lt1' class='function lt'></input><br>
+      <label for='lt1'>Y &lt; </label><input type='text' id='lt1' class='function lt' value="x*x"></input><br>
       <label for='lt2'>Y &lt; </label><input type='text' id='lt2' class='function lt'></input><br>
     </section>
     <section>

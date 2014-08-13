@@ -3,6 +3,7 @@ body {
 }
 
 .container {
+  position: relative;
   margin: 20px;
 }
 
@@ -14,4 +15,10 @@ body {
 button {
   font-size: 24px;
   padding: 10px;
+}
+
+#HitsAndMisses {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

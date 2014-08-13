@@ -4,6 +4,10 @@ $(document).on('ready', function() {
   var inequalities = [];
   var xgt = null;
   var xlt = null;
+  var pxSize = null;
+  var hitOrMissContext = document.getElementById('HitsAndMisses').getContext('2d');
+  hitOrMissContext.globalAlpha = 0.6;
+
 
   //
   // Methods for the solution.
@@ -45,13 +49,13 @@ $(document).on('ready', function() {
       }
     }
 
-    color = (inside ? "green" : "red");
+    color = (inside ? "#36c" : "#c43");
 
-    createPoint(x, y, color);
+    //createPoint(x, y, color);
+    setPoint(x,y,color);
 
     return inside;
   };
-
 
   var createPoint = function(x, y, color) {
     var p = {
@@ -62,6 +66,47 @@ $(document).on('ready', function() {
     points.push(p);
     return p;
   };
+
+  // It's faster to draw pixels manually to indicate the integration hits and misses
+  var setPoint = function(x, y, color) {
+    points.push({
+      x: coordToPixels(x),
+      y: coordToPixels(-y),
+      color:color });
+  };
+
+  var drawDot = function (x, y, ctx, color) {
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.fillRect(-1, -1, 2, 2);
+    ctx.restore();
+  }
+
+  // Given a position in graph coordinate space, convert it to pixel space
+  var coordSize = getGraphDimensions().x.max - getGraphDimensions().x.min;
+  var graphSize = document.getElementById('HitsAndMisses').width;
+  var coordToPixels = function(pos) {
+    return (pos - getGraphDimensions().x.min) * graphSize / coordSize
+  }
+
+  var drawPixels = function(){
+    var i, p, len=points.length;
+    console.log('drawPixels', points);
+    hitOrMissContext.clearRect ( 0, 0, graphSize, graphSize );
+    hitOrMissContext.moveTo(0,0);
+    for(i=0; i<len; i++){
+      p = points[i];
+//      hitOrMissContext.translate(p.x, p.y);
+      hitOrMissContext.fillStyle = p.color;
+      hitOrMissContext.fillRect(p.x - 1, p.y - 1, 2, 2);
+//      drawDot(hitOrMissContext, p.color);
+    }
+    points = [];
+  }
+
+  var convertRange = function() {
+    pxSize = pxSize || document.getElementById('HitsAndMisses').width()
+  }
 
   //
   // Other methods
@@ -127,7 +172,6 @@ $(document).on('ready', function() {
     setBoundingBox();
     xgt = null;
     xlt = null;
-    points = [];
     inequalities = [];
     $('.integrationResult').text("");
   };
@@ -136,6 +180,7 @@ $(document).on('ready', function() {
     clearBoard();
     graph();
     var result = window.integrate();
+    drawPixels();
     $('.integrationResult').text(result);
   };
 
