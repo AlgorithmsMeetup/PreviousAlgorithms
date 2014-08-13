@@ -75,13 +75,6 @@ $(document).on('ready', function() {
       color:color });
   };
 
-  var drawDot = function (x, y, ctx, color) {
-    ctx.save();
-    ctx.fillStyle = color;
-    ctx.fillRect(-1, -1, 2, 2);
-    ctx.restore();
-  }
-
   // Given a position in graph coordinate space, convert it to pixel space
   var coordSize = getGraphDimensions().x.max - getGraphDimensions().x.min;
   var graphSize = document.getElementById('HitsAndMisses').width;
@@ -91,15 +84,12 @@ $(document).on('ready', function() {
 
   var drawPixels = function(){
     var i, p, len=points.length;
-    console.log('drawPixels', points);
     hitOrMissContext.clearRect ( 0, 0, graphSize, graphSize );
     hitOrMissContext.moveTo(0,0);
     for(i=0; i<len; i++){
       p = points[i];
-//      hitOrMissContext.translate(p.x, p.y);
       hitOrMissContext.fillStyle = p.color;
       hitOrMissContext.fillRect(p.x - 1, p.y - 1, 2, 2);
-//      drawDot(hitOrMissContext, p.color);
     }
     points = [];
   }
