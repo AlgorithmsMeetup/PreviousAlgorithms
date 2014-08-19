@@ -1,0 +1,288 @@
+<html>
+<head>
+  <title>Huffman Coding Demo</title>
+  <script src="lib/jquery.js"></script>
+  <script src="src/priorityQueue.js"></script>
+  <script src="src/misc.js"></script>
+</head>
+<body>
+  <div class='column c1'>
+    <h2>Corpus:</h2>
+    <textarea class='corpus'></textarea>
+    <div>
+      <button class='generate'>Generate</button>
+      <button class='lorem'>Use Lorem Ipsum</button>
+    </div>
+    <h2>Plain text:</h2>
+    <textarea type='text' class='encode'></textarea>
+    <div>
+      <button class='encode'>Encode</button>
+      <button class='encodeCorpus'>Use Corpus</button>
+    </div>
+    <h2>Coded text:</h2>
+    <textarea type='text' class='decode'></textarea>
+    <div>
+      <button class='decode'>Decode</button>
+    </div>
+    <div class='error'></div>
+  </div>
+  <div class='column c2'>
+    <h2>Your encoding scheme:</h2>
+    <ul class='coding'>
+    </ul>
+    <div class='efficiency'>
+      <h2>Efficiency:</h2>
+      <div class='standard'></div>
+      <div class='huffman'></div>
+      <div class='reduction'></div>
+    </div>
+  </div>
+
+
+  <style>
+    body {
+      font-family: courier;
+    }
+
+    .column {
+      margin: 0;
+      padding: 10px;
+      float: left;
+    }
+
+    .c1 {
+      width: 55%;
+    }
+
+    .c2 {
+      width: 40%;
+    }
+
+    .error {
+      color: #a00;
+    }
+
+    .efficiency {
+      margin-top: 20px;
+      float: left;
+      display: none;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      min-width: 80%;
+      min-height: 120px;
+    }
+
+    input {
+      min-width: 80%;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: block;
+      width: 48%;
+      margin: 0;
+      float: left;
+      white-space: pre-wrap;
+    }
+  </style>
+  <script>
+    var countChars = function(input) {
+      var counts = {};
+      for (var i = 0; i < input.length; i++) {
+        var c = input[i];
+        counts[c] = counts[c] || 0;
+        counts[c]++;
+      }
+      return counts;
+    };
+
+    var makeHuffmanTree = function(input) {
+      var charCounts = countChars(input);
+      var pq = new PriorityQueue();
+
+      for (var c in charCounts) {
+        var n = charCounts[c];
+        var tree = new Tree([c]);
+        pq.insert(n, tree);
+      }
+
+      while (pq.size() > 1) {
+        var first = pq.extract();
+        var second = pq.extract();
+
+        var tree1 = first.val;
+        var tree2 = second.val;
+
+        var key1 = first.key;
+        var key2 = second.key;
+
+        console.log("merging tree 1 and tree 2", tree1.val, tree2.val, key1, key2);
+
+        var newTree = new Tree(tree1.val.concat(tree2.val));
+        newTree.left = tree1;
+        newTree.right = tree2;
+        pq.insert(key1+key2, newTree);
+      }
+
+      return pq.extract().val;
+    };
+
+    var encodeChar = function(c, huffman) {
+      var output = "";
+      while (huffman.val.length > 1) {
+        if (huffman.left.val.contains(c)) {
+          huffman = huffman.left;
+          output += "0";
+        } else if (huffman.right.val.contains(c)) {
+          huffman = huffman.right;
+          output += "1";
+        } else {
+          throw new Error("Character " + c + " is not in this Huffman tree.");
+        }
+      }
+      return output;
+    };
+
+    var encodeString = function(input, huffman) {
+      var output = "";
+      for (var i = 0; i < input.length; i++) {
+        output += encodeChar(input[i], huffman);
+      }
+      return output;
+    };
+
+    var decodeString = function(input, huffman) {
+      var output = "";
+      var currNode = huffman;
+      for (var currIdx = 0; currIdx < input.length; currIdx++) {
+        var currBit = input[currIdx];
+        if (currBit === "0") {
+          currNode = currNode.left;
+        } else if (currBit === "1") {
+          currNode = currNode.right;
+        }
+        if (currNode.val.length === 1) {
+          output += currNode.val[0];
+          currNode = huffman;
+        }
+      }
+      return output;
+    };
+
+    var getDictionaryFromTree = function(tree) {
+      var result = {};
+
+      var traverse = function(node, current) {
+        if (node.val.length === 1) {
+          result[node.val] = current;
+        }
+        if (node.left) {
+          traverse(node.left, current + "0");
+        }
+        if (node.right) {
+          traverse(node.right, current + "1");
+        }
+      };
+
+      traverse(tree, "");
+      return result;
+    };
+
+    var calcEfficiency = function(uncodedLen, codedLen, charSetSize) {
+      console.log(arguments);
+      var stdWordSize = Math.ceil(Math.log(charSetSize)/Math.LN2);
+      var stdCodedLen = stdWordSize*uncodedLen;
+      var reduction = ((stdCodedLen - codedLen)*100/stdCodedLen).toFixed(2) + "%";
+      $('.efficiency').show();
+
+      $('.efficiency .standard').text("With standard coding: " + stdCodedLen + " bits");
+      $('.efficiency .huffman').text("With Huffman coding: " + codedLen + " bits");
+      $('.efficiency .reduction').text("Reduction: " + reduction);
+    };
+
+    var huffman = null;
+
+    var triggerGenerateHuffman = function() {
+      $(".efficiency").hide();
+      var corpus = $("textarea.corpus").val();
+      huffman = makeHuffmanTree(corpus);
+      var dictionary = getDictionaryFromTree(huffman);
+      var ul = $('.coding');
+      ul.html('');
+      var pairs = Object
+        .keys(dictionary)
+        .sort(function(a, b) {
+          return dictionary[a].length - dictionary[b].length;
+        })
+        .forEach(function(key) {
+          var li = $("<li></li>");
+          li.text(key + " - " + dictionary[key]);
+          ul.append(li);
+        });
+    };
+
+    var triggerLorem = function() {
+      var corpus = $("textarea.corpus").val(loremIpsum);
+      triggerGenerateHuffman();
+    };
+
+    var triggerEncode = function() {
+      if (!huffman) {
+        $(".error").text("Please enter a corpus and create an encoding scheme first.")
+        return;
+      };
+      var input = $('textarea.encode').val();
+      var output;
+      try {
+        output = encodeString(input, huffman);
+      } catch (ex) {
+        $('.error').text(ex.message);
+        return;
+      }
+      $('.error').text('');
+      $("textarea.decode").val(output);
+      calcEfficiency(input.length, output.length, huffman.val.length)
+    };
+
+    var triggerEncodeCorpus = function() {
+      $('textarea.encode').val($('textarea.corpus').val());
+      triggerEncode();
+    };
+
+    var triggerDecode = function() {
+      $(".efficiency").hide();
+      if (!huffman) {
+        $(".error").text("Please enter a corpus and create an encoding scheme first.")
+        return;
+      };
+      var input = $('textarea.decode').val();
+      var output;
+      try {
+        output = decodeString(input, huffman);
+      } catch (ex) {
+        $('.error').text(ex.message);
+        return;
+      }
+      $('.error').text('');
+      $("textarea.encode").val(output);
+    };
+
+
+    $(document).on('click', 'button.generate', triggerGenerateHuffman);
+    $(document).on('click', 'button.lorem', triggerLorem);
+    $(document).on('click', 'button.encode', triggerEncode);
+    $(document).on('click', 'button.encodeCorpus', triggerEncodeCorpus);
+    $(document).on('click', 'button.decode', triggerDecode);
+
+  </script>
+</body>
+</html>
