@@ -9,19 +9,20 @@
   <div class='column c1'>
     <h2>Corpus:</h2>
     <textarea class='corpus'></textarea>
-    <div>
+    <div class='buttons'>
       <button class='generate'>Generate</button>
       <button class='lorem'>Use Lorem Ipsum</button>
+      <button class='declaration'>Use Declaration of Independence</button>
     </div>
     <h2>Plain text:</h2>
     <textarea type='text' class='encode'></textarea>
-    <div>
+    <div class='buttons'>
       <button class='encode'>Encode</button>
       <button class='encodeCorpus'>Use Corpus</button>
     </div>
     <h2>Coded text:</h2>
     <textarea type='text' class='decode'></textarea>
-    <div>
+    <div class='buttons'>
       <button class='decode'>Decode</button>
     </div>
     <div class='error'></div>
@@ -46,7 +47,7 @@
 
     .column {
       margin: 0;
-      padding: 10px;
+      padding: 0 10px;
       float: left;
     }
 
@@ -56,6 +57,11 @@
 
     .c2 {
       width: 40%;
+    }
+
+    .buttons {
+      margin-top: 5px;
+      margin-bottom: 10px;
     }
 
     .error {
@@ -68,13 +74,19 @@
       display: none;
     }
 
+    body {
+      margin: 5px;
+      padding: 0 10px 20px;
+    }
+
     h2 {
-      margin-bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 5px;
     }
 
     textarea {
       min-width: 80%;
-      min-height: 120px;
+      min-height: 130px;
     }
 
     input {
@@ -125,8 +137,6 @@
         var key1 = first.key;
         var key2 = second.key;
 
-        console.log("merging tree 1 and tree 2", tree1.val, tree2.val, key1, key2);
-
         var newTree = new Tree(tree1.val.concat(tree2.val));
         newTree.left = tree1;
         newTree.right = tree2;
@@ -139,10 +149,10 @@
     var encodeChar = function(c, huffman) {
       var output = "";
       while (huffman.val.length > 1) {
-        if (huffman.left.val.contains(c)) {
+        if (huffman.left.val.indexOf(c) !== -1) {
           huffman = huffman.left;
           output += "0";
-        } else if (huffman.right.val.contains(c)) {
+        } else if (huffman.right.val.indexOf(c) !== -1) {
           huffman = huffman.right;
           output += "1";
         } else {
@@ -198,7 +208,6 @@
     };
 
     var calcEfficiency = function(uncodedLen, codedLen, charSetSize) {
-      console.log(arguments);
       var stdWordSize = Math.ceil(Math.log(charSetSize)/Math.LN2);
       var stdCodedLen = stdWordSize*uncodedLen;
       var reduction = ((stdCodedLen - codedLen)*100/stdCodedLen).toFixed(2) + "%";
@@ -232,6 +241,11 @@
 
     var triggerLorem = function() {
       var corpus = $("textarea.corpus").val(loremIpsum);
+      triggerGenerateHuffman();
+    };
+
+    var triggerDeclaration = function() {
+      var corpus = $("textarea.corpus").val(declaration);
       triggerGenerateHuffman();
     };
 
@@ -279,6 +293,7 @@
 
     $(document).on('click', 'button.generate', triggerGenerateHuffman);
     $(document).on('click', 'button.lorem', triggerLorem);
+    $(document).on('click', 'button.declaration', triggerDeclaration);
     $(document).on('click', 'button.encode', triggerEncode);
     $(document).on('click', 'button.encodeCorpus', triggerEncodeCorpus);
     $(document).on('click', 'button.decode', triggerDecode);

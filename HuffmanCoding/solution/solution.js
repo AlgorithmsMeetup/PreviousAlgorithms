@@ -40,10 +40,10 @@ var huffmanCode = function(input) {
 var encodeChar = function(c, huffman) {
   var output = "";
   while (huffman.val.length > 1) {
-    if (huffman.left.val.contains(c)) {
+    if (huffman.left.val.indexOf(c) !== -1) {
       huffman = huffman.left;
       output += "0";
-    } else if (huffman.right.val.contains(c)) {
+    } else if (huffman.right.val.indexOf(c) !== -1) {
       huffman = huffman.right;
       output += "1";
     } else {
