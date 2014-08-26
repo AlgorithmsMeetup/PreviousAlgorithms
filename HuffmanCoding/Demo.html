@@ -179,11 +179,16 @@
           currNode = currNode.left;
         } else if (currBit === "1") {
           currNode = currNode.right;
+        } else {
+          throw new Error("String to decode must consist of only 0s and 1s.");
         }
         if (currNode.val.length === 1) {
           output += currNode.val[0];
           currNode = huffman;
         }
+      }
+      if (currNode !== huffman) {
+        throw new Error("String cannot be decoded - make sure you aren't missing any bits!");
       }
       return output;
     };
@@ -230,7 +235,7 @@
       var pairs = Object
         .keys(dictionary)
         .sort(function(a, b) {
-          return dictionary[a].length - dictionary[b].length;
+          return a < b ? -1 : 1;
         })
         .forEach(function(key) {
           var li = $("<li></li>");
@@ -250,11 +255,16 @@
     };
 
     var triggerEncode = function() {
+      $("textarea.decode").val('');
       if (!huffman) {
         $(".error").text("Please enter a corpus and create an encoding scheme first.")
         return;
       };
       var input = $('textarea.encode').val();
+      if (!input) {
+        $(".error").text("Please enter some text to encode.")
+        return;
+      }
       var output;
       try {
         output = encodeString(input, huffman);
@@ -274,11 +284,16 @@
 
     var triggerDecode = function() {
       $(".efficiency").hide();
+      $("textarea.encode").val('');
       if (!huffman) {
         $(".error").text("Please enter a corpus and create an encoding scheme first.")
         return;
       };
       var input = $('textarea.decode').val();
+      if (!input) {
+        $(".error").text("Please enter some text to decode.")
+        return;
+      }
       var output;
       try {
         output = decodeString(input, huffman);

@@ -50,7 +50,6 @@ PriorityQueue.prototype.insert = function(key, val) {
     var working = parent !== undefined;
 
     while (working && current > 0) {
-        console.log(this._key(parent), this._key(current));
         if (this._key(parent) > this._key(current)) {
             this._swap(current, parent);
             current = parent;
