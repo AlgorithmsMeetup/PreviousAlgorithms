@@ -37,26 +37,21 @@ var huffmanCode = function(input) {
   return pq.extract().val;
 };
 
-var encodeChar = function(c, huffman) {
-  var output = "";
-  while (huffman.val.length > 1) {
-    if (huffman.left.val.indexOf(c) !== -1) {
-      huffman = huffman.left;
-      output += "0";
-    } else if (huffman.right.val.indexOf(c) !== -1) {
-      huffman = huffman.right;
-      output += "1";
-    } else {
-      throw new Error("Character " + c + "is not in this Huffman tree.");
-    }
-  }
-  return output;
-};
-
 var encodeString = function(input, huffman) {
   var output = "";
   for (var i = 0; i < input.length; i++) {
-    output += encodeChar(input[i], huffman);
+    var currentNode = huffman;
+    while (currentNode.val.length > 1) {
+      if (currentNode.left.val.indexOf(c) !== -1) {
+        currentNode = currentNode.left;
+        output += "0";
+      } else if (currentNode.right.val.indexOf(c) !== -1) {
+        currentNode = currentNode.right;
+        output += "1";
+      } else {
+        throw new Error("Character " + c + "is not in this Huffman tree.");
+      }
+    }
   }
   return output;
 };
