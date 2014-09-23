@@ -32,15 +32,22 @@ players.red = {
 
     // Start with no best move, and a best value as low as possible.
     var bestMove;
-    var bestValue = -Infinity;
+    var bestScore = -Infinity;
 
+    // For each of the seven possible moves...
     for (var move = 0; move < 7; move++) {
-      var value = Math.random();
-      if (value > bestValue) {
+      
+      // Whee!  Randomly pick a score for the move
+      var score = Math.random(); 
+      
+      // If it's the best we've seen so far, remember it.
+      if (score > bestScore) {
         bestMove = move;
-        bestValue = value;
+        bestScore = score;
       }
     }
+
+    // Return the best move we've seen.
     return callback(bestMove);
   }
 };
