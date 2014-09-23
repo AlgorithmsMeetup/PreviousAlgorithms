@@ -50,33 +50,32 @@ players.red = {
 };
 
 var minimax = function minimax(board, depth, currentPlayer) {
-    if (depth === 0) {
-        return evaluateBoard(board, currentPlayer);
+  if (depth === 0) {
+    return evaluateBoard(board, currentPlayer);
+  }
+  if (currentPlayer === 1) {
+    var bestValue = -Infinity;
+    for (var move = 0; move < 7; move++) {
+      var copy = copyBoard(board);
+      var copyWithMove = makeMove(currentPlayer, move, copy);
+      if (copyWithMove) {
+      var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
+      bestValue = Math.max(value, bestValue);
+      }
     }
-    if (currentPlayer === 1) {
-        var bestValue = -1000000;
-        for (var move = 0; move < 7; move++) {
-            var copy = copyBoard(board);
-            var copyWithMove = makeMove(currentPlayer, move, copy);
-            if (copyWithMove) {
-              var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
-              bestValue = Math.max(value, bestValue);
-            }
-        }
-        return bestValue;
+    return bestValue;
+  } else {
+    bestValue = Infinity;
+    for (var move = 0; move < 7; move++) {
+      var copy = copyBoard(board);
+      var copyWithMove = makeMove(currentPlayer, move, copy);
+      if (copyWithMove) {
+        var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
+        bestValue = Math.min(value, bestValue);
+      }
     }
-    else {
-        bestValue = 1000000;
-        for (var move = 0; move < 7; move++) {
-            var copy = copyBoard(board);
-            var copyWithMove = makeMove(currentPlayer, move, copy);
-            if (copyWithMove) {
-              var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
-              bestValue = Math.min(value, bestValue);
-            }
-        }
-        return bestValue;
-    }
+    return bestValue;
+  }
 }
 
 
