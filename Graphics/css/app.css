@@ -1,0 +1,16 @@
+.viewport {
+  position: relative;
+  width: 512px;
+  height: 512px;
+  margin: 50px auto;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.point {
+  position: absolute;
+  width:0;
+  height:0;
+  border:2px solid black;
+  border-radius: 2px;
+}

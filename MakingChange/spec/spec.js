@@ -1,48 +1,39 @@
 (function() {
-  var cache, myCoinValues, maxAmount, generateAnswers, yourAnswer, valueInDollars, count, value, _i, _len, generateTest, answers;
 
-  cache = [[]];
-  for (_i = 0, _len = coinValues.length; _i < _len; _i++) {
-    value = coinValues[_i];
-    cache.push([]);
+  var cache = [[]];
+  var answers = [];
+  
+  var coins = coinValues.sort(function(a, b) {return b - a;});
+  var coinsLength = coins.length;
+  var maxAmount = amountsToTest[amountsToTest.length - 1];
+
+  // Fill in all values using dynamic programming.
+  for (var i = 0; i < coinsLength; i++) {
+    cache[0].push(1);
   }
 
-  count = function(amount, coins) {
-    var result = 0;
-    if (cache[coins.length][amount]) {
-      result = cache[coins.length][amount];
-    } else if (amount === 0) {
-      result = 1;
-    } else if (amount < 0) {
-      result = 0;
-    } else if (coins.length === 0) {
-      result = 0;
-    } else {
-      result = count(amount, coins.slice(1)) + count(amount - coins[0], coins)
+  for (var row = 1; row <= maxAmount; row++) {
+    cache[row] = [];
+    for (var col = 0; col < coinsLength; col++) {
+      var left = col > 0 ? cache[row][col-1] : 0;
+      var above = row - coins[col] >= 0 ? cache[row - coins[col]][col] : 0;
+      cache[row][col] = left + above;
     }
-    cache[coins.length][amount] = result;
-    return result
-  };
-
-  answers = [];
-  myCoinValues = coinValues.sort(function(a, b) {return b - a;});
-  maxAmount = amountsToTest[amountsToTest.length - 1];
-  for (var i = 0; i <= maxAmount; i++) {
-    answers[i] = count(i, myCoinValues)
   }
 
-  amountInDollars = function(amount) {
+  var amountInDollars = function(amount) {
     return (amount / 100).toFixed(2);
   };
 
-  generateTest = window.generateTest = function(amount) {
+  var generateTest = window.generateTest = function(amount) {
     it("Change for $" + amountInDollars(amount), function() {
-      expect(makeChange(amount)).to.equal(answers[amount]);
+      var answer = cache[amount][coinsLength - 1];
+      expect(makeChange(amount)).to.equal(answer);
     });
   };
 
   for (var i = 0; i < amountsToTest.length; i++) {
     generateTest(amountsToTest[i]);
-  };
+  }
 
 })();

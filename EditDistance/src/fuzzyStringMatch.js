@@ -1,41 +1,49 @@
 var fuzzyStringMatch = function(text, query) {
-
-  var qLen = query.length;
-  var tLen = text.length;
-
-  var prevPrevRow;
-  var prevRow = [];
-  // Fill in previous row with empty subsequences.
-  for (var col = 0; col <= tLen; col++) {
-    prevRow[col] = 0;
+  if (query === text) {
+    return 0;
   }
-  var currRow = [1];
+
+  if (!query.length || !text.length) {
+    return query.length || text.length;
+  }
+
+  var queryLen = query.length;
+  var textLen = text.length;
+
+  // Set up the matrix.
+  var matrix = [];
+  for (var row = 0; row <= queryLen; row++) {
+    var newRow = new Array(textLen + 1);
+    newRow[0] = row;
+    if (row === 0) {
+      for (var col = 1; col <= textLen; col++) {
+        newRow[col] = 0;
+      }
+    }
+    matrix.push(newRow);
+  }
 
   // Fake iterating through the whole matrix,
   // but remembering only two rows at a time.
-  for (var row = 1; row <= qLen; row++) {
-    for (var col = 1; col <= tLen; col++) {
+  for (var row = 1; row <= queryLen; row++) {
+    for (var col = 1; col <= textLen; col++) {
 
       // If two strings match at their final character, their LCS
       // is the LCS of their prefixes, plus that final character.
       if (query[row-1] === text[col-1]) {
-        currRow[col] = prevRow[col-1];
+        matrix[row][col] = matrix[row-1][col-1];
+
 
       // Otherwise, their LCS is the best LCS that results from
-      // trimming either of their final characters.
+      // trimming either of their final characters, plus one.
       } else {
-        var del = prevRow[col] + 1;
-        var ins = currRow[col-1] + 1;
-        var sub = prevRow[col-1] + 1;
-        currRow[col] = Math.min(del, ins, sub);
-      };
+        var del = matrix[row-1][col] + 1;
+        var ins = matrix[row][col-1] + 1;
+        var sub = matrix[row-1][col-1] + 1;
+        matrix[row][col] = Math.min(del, ins, sub);
+      }
     }
-    prevPrevRow = prevRow;
-    prevRow = currRow;
-    currRow = [row + 1];
   }
-
-  var min = Math.min.apply(null, prevRow);
-  console.log(min, qLen);
-  return (qLen-min)/qLen;
+  var minDistance = Math.min.apply(null, matrix[queryLen]);
+  return 1 - minDistance/queryLen;
 };
