@@ -7,76 +7,76 @@
   If you want to try playing as the blue player, simply paste your algorithm into that file.
 
   Functions available (in the global scope):
-    -- copyBoard(board):
-      Returns a copy of the board provided.
-      If no board is provided, copies the current game board.
+
     -- makeMove(player, column, board):
-      Makes a move for the given player at the given column on the provided, and returns the board.
+      Copies the provided board, then makes a move at the specified column for the given player.
       If no board is provided, makes the move on a copy of the current game board.
-      If the move is illegal, returns "NULL"
+      If the move is illegal, returns "NULL" (be sure to check for this!).
       Remember, red is represented by 1, and blue is represented by -1.
+    
     -- evaluateBoard(board, player):
       Returns a score expressing how good the provided board is for given player.
       Remember, red is represented by 1, and blue is represented by -1.
+    
     -- printBoard(board):
       Prints a copy of the board provided to the console.
       If no board is provided, prints the current game board.
+      For debugging purposes only.
 
 
 */
 
-
 players.red = {
-
   move: function(callback) {
-    var depth = 5;
+    var depth = 4;
 
-    var bestMove = 3;
-    var bestValue = -10000000;
+    // Start with no best move, and a best value as low as possible.
+    var bestMove;
+    var bestScore = -Infinity;
+
+    // For each of the seven possible moves...
     for (var move = 0; move < 7; move++) {
-      var copy = copyBoard();
-      var copyWithMove = makeMove(1, move, copy);
-      if (copyWithMove) {
-        var value = minimax(copyWithMove, depth, -1)
-        if (value > bestValue) {
-          bestValue = value;
+      
+      var withMove = makeMove(1, move);
+      if (withMove) { // An illegal move will return `null` for the new board.
+        var score = deepEval(withMove, 1, depth); 
+      
+        // If it's the best we've seen so far, remember it.
+        if (score > bestScore) {
           bestMove = move;
+          bestScore = score;
         }
       }
     }
+
+    // Return the best move we've seen.
     return callback(bestMove);
   }
-
 };
 
-var minimax = function minimax(board, depth, currentPlayer) {
-    if (depth === 0) {
-        return evaluateBoard(board, currentPlayer);
+var deepEval = function(board, player, depth) {
+  if (depth === 0) {
+    return evaluateBoard(board, player);
+  }
+
+  var bestScore = -Infinity;
+
+  for (var move = 0; move < 7; move++) {
+    // For each move your *opponent* could make...
+    var withMove = makeMove(-1*player, move, board);
+    
+    // If it's legal...
+    if (withMove) {
+      // The score for YOU is -1 times the score for them
+      var score = -1 * deepEval(withMove, -1*player, depth - 1);
+      
+      // Remember the best score.
+      if (score > bestScore) {
+        bestScore = score;
+      }
     }
-    if (currentPlayer === 1) {
-        var bestValue = -1000000;
-        for (var move = 0; move < 7; move++) {
-            var copy = copyBoard(board);
-            var copyWithMove = makeMove(currentPlayer, move, copy);
-            if (copyWithMove) {
-              var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
-              bestValue = Math.max(value, bestValue);
-            }
-        }
-        return bestValue;
-    }
-    else {
-        bestValue = 1000000;
-        for (var move = 0; move < 7; move++) {
-            var copy = copyBoard(board);
-            var copyWithMove = makeMove(currentPlayer, move, copy);
-            if (copyWithMove) {
-              var value = minimax(copyWithMove, depth - 1, currentPlayer * -1)
-              bestValue = Math.min(value, bestValue);
-            }
-        }
-        return bestValue;
-    }
+  }
+  return bestScore;
 }
 
 

@@ -7,32 +7,49 @@
   If you want to try playing as the blue player, simply paste your algorithm into that file.
 
   Functions available (in the global scope):
-    -- copyBoard(board):
-      Returns a copy of the board provided.
-      If no board is provided, copies the current game board.
+    
     -- makeMove(player, column, board):
-      Makes a move for the given player at the given column on the provided, and returns the board.
+      Copies the provided board, then makes a move at the specified column for the given player.
       If no board is provided, makes the move on a copy of the current game board.
-      If the move is illegal, returns "NULL"
+      If the move is illegal, returns "NULL" (be sure to check for this!).
       Remember, red is represented by 1, and blue is represented by -1.
+    
     -- evaluateBoard(board, player):
       Returns a score expressing how good the provided board is for given player.
       Remember, red is represented by 1, and blue is represented by -1.
+    
     -- printBoard(board):
       Prints a copy of the board provided to the console.
       If no board is provided, prints the current game board.
+      For debugging purposes only.
 
 
 */
 
-
 players.red = {
-
   move: function(callback) {
-    var bestMove = 3;
+    var depth = 1;
+
+    // Start with no best move, and a best value as low as possible.
+    var bestMove;
+    var bestScore = -Infinity;
+
+    // For each of the seven possible moves...
+    for (var move = 0; move < 7; move++) {
+      
+      // Whee!  Randomly pick a score for the move
+      var score = Math.random(); 
+      
+      // If it's the best we've seen so far, remember it.
+      if (score > bestScore) {
+        bestMove = move;
+        bestScore = score;
+      }
+    }
+
+    // Return the best move we've seen.
     return callback(bestMove);
   }
-
 };
 
 
