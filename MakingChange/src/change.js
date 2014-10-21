@@ -17,38 +17,28 @@ var coinValues = [10000, 5000, 2000, 1000, 500, 100, 50, 25, 10, 5, 1];
 
 // A recursive solution, as discussed at the meetup.
 var makeChange = function(amount) {
-
-  var cache = [];
-  for (var i = 0; i <= coinValues.length; i++) {
-    cache.push([]);
-  }
-
-  var recurse = function(amount, coins) {
+  
+  var recursion = function(amount, coinsICanUse) {
     if (amount === 0) {
       return 1;
-    } else if (coins.length === 1) {
-      return 1;
-    } else {
-      if (cache[coins.length][amount] !== undefined) {
-        return cache[coins.length][amount];
-      }
-
-      var total = 0;
-      var newCoins = coins.slice(1);
-      total += recurse(amount, newCoins);
-      if (coins[0] <= amount) {
-        total += recurse(amount - coins[0], coins);
-      }
-      cache[coins.length][amount] = total;
-      return total;
     }
+    var result = 0;
+
+    var largestCoin = coinsICanUse[0];
+    var minusOneOfLargestCoin = amount - largestCoin;
+    if (minusOneOfLargestCoin >= 0) {
+      result += recursion(minusOneOfLargestCoin, coinsICanUse);
+    }
+    
+    if (coinsICanUse.length > 1) {
+      result += recursion(amount, coinsICanUse.slice(1));
+    }
+
+    return result;
   };
-
-  for (var i = 0; i < amount; i++) {
-    recurse(i, coinValues);
-  }
-
-  return recurse(amount, coinValues);
+  
+  return recursion(amount, coinValues.slice());
+};
 };
 
 // Bonus: A dynamic programming solution!  About 5x as fast - see if you can figure it out!
