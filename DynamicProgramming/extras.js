@@ -1,6 +1,14 @@
 // Recursive solution - not nearly as good as DP.
 
+var cache = [];
+for (var i = 0; i < size; i++) {
+  cache.push([]);
+}
+
 var recurse = function(row, col) {
+  if (cache[row][col] !== undefined) {
+    return cache[row][col];
+  }
   if (row === size - 1) {
     return {
       cost: input[row][col],
@@ -30,10 +38,12 @@ var recurse = function(row, col) {
     choice = center;
   }
 
-  return {
+  var retVal = {
     cost: choice.cost + input[row][col],
     path: [col].concat(choice.path)
   };
+  cache[row][col] = retval;
+  return retval;
 };
 
 var bestPath = null;

@@ -26,6 +26,19 @@ var size = 12;
 
 var findMinimumPath = function(input) {
 
+  // Dynamic programming woo!
+  for (var row = size - 2; row >= 0; row--) {
+    for (var col = 0; col < size; col++) {
+
+      var left = input[row+1][col-1] || Infinity;
+      var center = input[row+1][col];
+      var right = input[row+1][col+1] || Infinity;
+
+      // Update the square above these choices.
+      input[row][col] += Math.min.apply(null, [left, center, right]);
+    }
+  }
+
   // This is the "greedy" solution - it's not very good, because
   // it never "looks ahead" to the rows yet to come.
   // But it might be of some help to you as you write your own!
