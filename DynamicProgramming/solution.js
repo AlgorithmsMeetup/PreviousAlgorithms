@@ -68,6 +68,5 @@ var findMinimumPath = function(input) {
     // Push our current column into our solution array.
     solution.push(currentCol);
   }
-  solution[0] = -1
   return solution;
 };
