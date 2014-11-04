@@ -10,19 +10,23 @@
 
   var calcInputTotal = function(solution, matrix) {
     if (!solution) {
-      return "No path given";
+      return "no path given - check your console for errors";
     }
     var current = solution[0];
     for (var i = 1; i < solution.length; i++) {
       var next = solution[i];
       if (Math.abs(current - next) > 1) {
-        return "Illegal path";
+        return ["at row", i, "jumps from column", current, "to column", next].join(" ");
       }
       current = next;
     }
     var sum = 0;
     for(var i = 0; i < solution.length; i++) {
-      sum += matrix[i][solution[i]];
+      var col = solution[i];
+      if (!(col >= 0 && col < size)) {
+        return ["included the value", col, "which is out of bounds"].join(" ");
+      }
+      sum += matrix[i][col];
     }
     return sum;
   };
@@ -58,7 +62,12 @@
       matrix.append(tRow);
     }
     var myTotal = calcInputTotal(mySolution, input);
-    var theirTotal = calcInputTotal(theirSolution, input);
+    var theirTotal;
+    if (theirSolution && mySolution.length !== theirSolution.length)  {
+      theirTotal = ["bad length - got", theirSolution.length, "but should be", mySolution.length].join(" ")
+    } else {
+      theirTotal = calcInputTotal(theirSolution, input);
+    }
 
     if (myTotal !== theirTotal) {
       $('.yours').text("Your solution: " + theirTotal);
@@ -119,7 +128,7 @@
     try {
       theirSolution = findMinimumPath(clone(input));
     } catch (e) {
-      console.error(e.stack);
+      console.error(e);
       theirSolution = null;
     }
     var mySolution = solve(clone(input));
