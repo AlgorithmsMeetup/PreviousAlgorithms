@@ -3,85 +3,85 @@ var problems = [
     description: "Matches a series of characters",
     matches: ["nana", "banana", "nanananana"],
     doesntMatch: ["ana", "bana", "anna", "nan"],
-    regex: /nana/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a phrase that needs escaping",
     matches: ["(subtlety)"],
     doesntMatch: ["subtlety"],
-    regex: /\(subtlety\)/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a string (case insensitive)",
     matches: ["Dinosaurs are coming.", "Look, dinosaurs!", "Ahhh!  DINOSAURS!"],
     doesntMatch: ["dino", "saurs"],
-    regex: /dinosaurs/i
+    regex: /FILL ME IN/
   },
   {
     description: "Matches one of two characters",
     matches: ["b", "c"],
     doesntMatch: ["a", "d", "e", "f"],
-    regex: /[b|c]/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a word with one of several prefixes",
     matches: ["prefix", "suffix", "infix"],
     doesntMatch: ["fix", "blix", "unix"],
-    regex: /[pre|suf|in]fix/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a word with an arbitrary number of a character",
     matches: ["snp", "snep", "sneep", "sneeep", "sneeeeep", "sneeeeeeeeeeeeeep"],
     doesntMatch: ["s", "sleeep", "snanana"],
-    regex: /sne*p/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a word with an arbitrary, non-zero number of a character",
     matches: ["sne", "snee", "sneee", "sneeeee", "sneeeeeeeeeeeeee"],
     doesntMatch: ["sna", "snanana", "s", "sn", "e"],
-    regex: /sn(e+)/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a series of characters only at the beginning of the string",
     matches: ["ant", "anteater", "antelope"],
     doesntMatch: ["cantelope", "cantor"],
-    regex: /^ant/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a series of characters only at the end of the string",
     matches: ["running", "fighting", "hitting"],
     doesntMatch: ["ingot", "trappings"],
-    regex: /ing$/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches only letters and numbers",
     matches: ["hjkl", "1234", "a1b2c3d4", "XYZ"],
     doesntMatch: ["asdf?", "12-34", "awefij*", ""],
-    regex: /^[A-Za-z0-9]+$/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches only uppercase strings",
     matches: ["HELLO", "SIR", "GOOD DAY TO YOU"],
     doesntMatch: ["hi", "Fine weather today", "I do so say, I do"],
-    regex: /^[A-Z\s]+$/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a word", 
     matches: ["Hello", "Hello, Bob.", "Hello, Fred."],
     doesntMatch: ["hello", "Hell", "ello", "Hellogoodbye"],
-    regex: /\bHello\b/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches singular and plural",
     matches: ["dog is cool", "dogs are cool"],
     doesntMatch: ["do cool", "doge is cool"],
-    regex: /\bdogs?\b/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches only perfect mYsPaCeCaSe",
     matches: ["gAnGsTaZ", "xXxSpArKlEzZxXx"],
     doesntMatch: ["Proper casing", "nOTRigHT"],
-    regex: /^([a-z][A-Z])+[a-z]?$/
+    regex: /FILL ME IN/
   },
   {
     description: "Matches a MongoDB id (24 characters, 0-9 and a-f)",
