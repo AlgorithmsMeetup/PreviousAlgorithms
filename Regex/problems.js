@@ -3,79 +3,85 @@ var problems = [
     description: "Matches a series of characters",
     matches: ["nana", "banana", "nanananana"],
     doesntMatch: ["ana", "bana", "anna", "nan"],
-    regex: /FILL ME IN/
-  },
-  {
-    description: "Matches a word (case sensitive)", 
-    matches: ["Hello", "Hello, Bob.", "Hello, Fred."],
-    doesntMatch: ["hello", "Hell", "ello", "Hellogoodbye"],
-    regex: /FILL ME IN/
-  },
-  {
-    description: "Matches a word (case insensitive)",
-    matches: ["Dinosaurs are coming.", "Look, dinosaurs!", "Ahhh!  DINOSAURS!"],
-    doesntMatch: ["dino", "saurs"],
-    regex: /FILL ME IN/
-  },
-  {
-    description: "Matches only letters and numbers",
-    matches: ["asdf", "1234", "a1b2c3d4"],
-    doesntMatch: ["asdf?", "12-34"],
-    regex: /FILL ME IN/
+    regex: /nana/
   },
   {
     description: "Matches a phrase that needs escaping",
     matches: ["(subtlety)"],
     doesntMatch: ["subtlety"],
-    regex: /FILL ME IN/
+    regex: /\(subtlety\)/
+  },
+  {
+    description: "Matches a string (case insensitive)",
+    matches: ["Dinosaurs are coming.", "Look, dinosaurs!", "Ahhh!  DINOSAURS!"],
+    doesntMatch: ["dino", "saurs"],
+    regex: /dinosaurs/i
   },
   {
     description: "Matches one of two characters",
     matches: ["b", "c"],
     doesntMatch: ["a", "d", "e", "f"],
-    regex: /FILL ME IN/
+    regex: /[b|c]/
   },
   {
     description: "Matches a word with one of several prefixes",
     matches: ["prefix", "suffix", "infix"],
     doesntMatch: ["fix", "blix", "unix"],
-    regex: /FILL ME IN/
+    regex: /[pre|suf|in]fix/
   },
   {
     description: "Matches a word with an arbitrary number of a character",
-    matches: ["sn", "sne", "snee", "sneee", "sneeeee", "sneeeeeeeeeeeeee"],
-    doesntMatch: ["s", "sna", "snanana"],
-    regex: /FILL ME IN/
+    matches: ["snp", "snep", "sneep", "sneeep", "sneeeeep", "sneeeeeeeeeeeeeep"],
+    doesntMatch: ["s", "sleeep", "snanana"],
+    regex: /sne*p/
   },
   {
     description: "Matches a word with an arbitrary, non-zero number of a character",
     matches: ["sne", "snee", "sneee", "sneeeee", "sneeeeeeeeeeeeee"],
     doesntMatch: ["sna", "snanana", "s", "sn", "e"],
-    regex: /FILL ME IN/
+    regex: /sn(e+)/
   },
   {
     description: "Matches a series of characters only at the beginning of the string",
     matches: ["ant", "anteater", "antelope"],
     doesntMatch: ["cantelope", "cantor"],
-    regex: /FILL ME IN/
+    regex: /^ant/
   },
   {
     description: "Matches a series of characters only at the end of the string",
     matches: ["running", "fighting", "hitting"],
     doesntMatch: ["ingot", "trappings"],
-    regex: /FILL ME IN/
+    regex: /ing$/
+  },
+  {
+    description: "Matches only letters and numbers",
+    matches: ["hjkl", "1234", "a1b2c3d4", "XYZ"],
+    doesntMatch: ["asdf?", "12-34", "awefij*", ""],
+    regex: /^[A-Za-z0-9]+$/
   },
   {
     description: "Matches only uppercase strings",
     matches: ["HELLO", "SIR", "GOOD DAY TO YOU"],
     doesntMatch: ["hi", "Fine weather today", "I do so say, I do"],
-    regex: /FILL ME IN/
+    regex: /^[A-Z\s]+$/
+  },
+  {
+    description: "Matches a word", 
+    matches: ["Hello", "Hello, Bob.", "Hello, Fred."],
+    doesntMatch: ["hello", "Hell", "ello", "Hellogoodbye"],
+    regex: /\bHello\b/
+  },
+  {
+    description: "Matches singular and plural",
+    matches: ["dog is cool", "dogs are cool"],
+    doesntMatch: ["do cool", "doge is cool"],
+    regex: /\bdogs?\b/
   },
   {
     description: "Matches only perfect mYsPaCeCaSe",
-    matches: ["xXxSpArKlEzZxXx", "gAnGsTa"],
+    matches: ["gAnGsTaZ", "xXxSpArKlEzZxXx"],
     doesntMatch: ["Proper casing", "nOTRigHT"],
-    regex: /FILL ME IN/
+    regex: /^([a-z][A-Z])+[a-z]?$/
   },
   {
     description: "Matches a MongoDB id (24 characters, 0-9 and a-f)",
@@ -103,7 +109,7 @@ var problems = [
   },
   {
     description: "Matches ten-digit phone numbers in standard formats",
-    matches: ["495-394-2938", "9293802283", "(415) 504-1928", "463.204.1028"],
+    matches: ["495-394-2938", "9293802283", "(415) 504-1928"],
     doesntMatch: ["234567890", "23-245-23-123", "394*730*1938"],
     regex: /FILL ME IN/
   },
@@ -128,7 +134,7 @@ var problems = [
   },
   {
     description: "Matches URLs with valid query strings",
-    matches: ["asdf.com?key=val", "google.com?search=turtles&limit=100"],
+    matches: ["asdf.com?key=val", "google.com?search=turtles&limit=100&foo=bar"],
     doesntMatch: ["asdf.com?keyval", "google.com?search=turtles?limit=1", "google.com&asdf=4"],
     regex: /FILL ME IN/
   },
