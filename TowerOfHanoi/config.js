@@ -3,8 +3,8 @@ module.exports = {
   pieces: 5,
 
   // Number of columns pieces can be placed on.
-  columns: 4,
+  columns: 3,
 
   // Whether pieces start in random locations (vs on the first column).
-  random: true
+  random: false
 };

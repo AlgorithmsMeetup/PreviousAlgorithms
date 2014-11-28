@@ -6,6 +6,12 @@ var top = function(stack) {
 };
 
 var checkMove = function(from, to) {
+  if (from < 0 || from >= config.columns) {
+    return display.error(["Cannot move from tower", from, "to tower", to, "because tower", from, "it does not exist"].join(" "));
+  }
+  if (to < 0 || to >= config.columns) {
+    return display.error(["Cannot move from tower", from, "to tower", to, "because tower", to, "it does not exist"].join(" "));
+  }
   if (towers[from].length === 0) {
     return display.error(["Cannot move from tower", from, "to tower", to, "because tower", from, "is empty"].join(" "));
   }
@@ -43,7 +49,7 @@ actions.move = function(from, to) {
 
 actions.finish = function() {
   if (top(towers).length !== config.pieces) {
-    return display.error("You haven't finished yet - not all pieces are in the final stack.");
+    return display.error("You haven't finished yet - not all pieces are in the final stack");
   }
   display.victory();
 };
