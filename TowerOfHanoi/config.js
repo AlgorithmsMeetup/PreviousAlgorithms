@@ -1,6 +1,6 @@
 module.exports = {
   // Number of pieces to move.
-  pieces: 5,
+  pieces: 3,
 
   // Number of columns pieces can be placed on.
   columns: 3,
