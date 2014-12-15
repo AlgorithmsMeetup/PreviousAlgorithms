@@ -1,22 +1,24 @@
 var path = require("path");
 var fs = require("fs");
 var Set = require("./set");
-var corpus = fs.readFileSync(path.join(__dirname, "./corpus"));
+var corpus = String(fs.readFileSync(path.join(__dirname, "./corpus")));
 console.log("\nInitializing spellchecker!\n");
 
 /*
-  Returns an object with each unique word input as a key, and the count
-  of the number of occurances of that word as the value.
+  Returns an object with each unique word in the input as a key,
+  and the count of the number of occurances of that word as the value.
+  (HINT: the code `text.toLowerCase().match(/[a-z]+/g)` will return an array
+  of all lowercase words in the string.)
 */
 function getWordCounts(text) {
-  return text.split(" ").slice(0, 100).reduce(function(output, word) {
-    var key = word.toLowerCase();
-    output[key] = (output[key] + 1) || 1;
-  }, {});
+  // return text.toLowerCase().match(/[a-z]+/g).reduce(function(output, word) {
+  //   var key = word.toLowerCase();
+  //   output[key] = (output[key] + 1) || 1;
+  //   return output;
+  // }, {});
 }
 
 var WORD_COUNTS = getWordCounts(corpus);
-console.log(WORD_COUNTS);
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 /*
@@ -27,15 +29,7 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz";
     - Transposing (switching) the order of any two adjacent characters in a word.
     - Substituting any character in the word with another character.
 */
-function edits1(word) {
-
-}
-
-/*
-  Given a list of potential words, returns only those words that occured in the corpus.
-  (HINT: Words in the corpus are the keys of WORD_COUNTS.)
-*/
-function known(words) {
+function editDistance1(word) {
 
 }
 
@@ -45,12 +39,12 @@ function known(words) {
   - Second, if the word has any known words edit-distance 1 away, return the one with
     the highest frequency, as recorded in NWORDS.
   - Third, if the word has any known words edit-distance 2 away, return the one with
-    the highest frequency, as recorded in NWORDS. (HINT: what does applying "edits1" 
-    *again* to each word of its own output do?)
+    the highest frequency, as recorded in NWORDS. (HINT: what does applying
+    "editDistance1" *again* to each word of its own output do?)
   - Finally, if no good replacements are found, return the word.
 */
 function correct(word) {
-
+  
 }
 
 /*
