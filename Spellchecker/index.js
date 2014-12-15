@@ -1,6 +1,5 @@
 var path = require("path");
 var fs = require("fs");
-var Set = require("./set");
 var corpus = String(fs.readFileSync(path.join(__dirname, "./corpus")));
 console.log("\nInitializing spellchecker!\n");
 
