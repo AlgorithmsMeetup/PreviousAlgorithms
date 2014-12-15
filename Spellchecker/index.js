@@ -9,10 +9,14 @@ console.log("\nInitializing spellchecker!\n");
   of the number of occurances of that word as the value.
 */
 function getWordCounts(text) {
-
+  return text.split(" ").slice(0, 100).reduce(function(output, word) {
+    var key = word.toLowerCase();
+    output[key] = (output[key] + 1) || 1;
+  }, {});
 }
 
 var WORD_COUNTS = getWordCounts(corpus);
+console.log(WORD_COUNTS);
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 /*
