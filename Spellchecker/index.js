@@ -10,11 +10,7 @@ console.log("\nInitializing spellchecker!\n");
   of all lowercase words in the string.)
 */
 function getWordCounts(text) {
-  // return text.toLowerCase().match(/[a-z]+/g).reduce(function(output, word) {
-  //   var key = word.toLowerCase();
-  //   output[key] = (output[key] + 1) || 1;
-  //   return output;
-  // }, {});
+
 }
 
 var WORD_COUNTS = getWordCounts(corpus);
