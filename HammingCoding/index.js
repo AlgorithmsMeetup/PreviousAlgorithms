@@ -6,42 +6,53 @@ function bitsToString(bits) {
   return bits.join("");
 }
 
+function listToString(list) {
+  if (list.length === 0) {
+    return "-- none --";
+  } else if (list.length === 1) {
+    return list[0];
+  } else if (list.length === 2) {
+    return [list[0], "and", list[1]].join(" ");
+  } else {
+    return [list.slice(0, -1).join(", ") + ", and", list[list.length - 1]].join(" ");
+  }
+}
+
 function lineBreak() {
   console.log(" ");
 }
 
+function log() {
+  console.log.apply(console, arguments);
+  lineBreak();
+}
+
+
 var input = process.argv[2];
 lineBreak();
 lineBreak();
-console.log("-----------------------------");
-console.log("Initializing Hamming Coder...");
-console.log("-----------------------------");
-lineBreak();
+log("Initializing Hamming Coder...");
 
-console.log("Input message:", input);
-lineBreak();
+log(" - Input message:        ", input);
 
 var inputBits = ascii.toBits(input);
-console.log("In bits, that's", bitsToString(inputBits));
-lineBreak();
+log(" - In bits, that's:      ", bitsToString(inputBits));
 
 var encoded = hamming.encode(inputBits);
-console.log("Encoding that into", bitsToString(encoded));
-lineBreak();
+log(" - Encoding as:          ", bitsToString(encoded));
 
 var scrambled = scramble(encoded);
-console.log("Scrambling your message with an error rate of", scramble.errorRate);
-lineBreak();
+log(" - Error rate:           ", (scramble.errorRate * 100).toFixed(1) + "%");
 
-console.log("It's now", bitsToString(scrambled));
-lineBreak();
+log(" - Flipped bits:         ", listToString(scrambled.changes));
 
-var decoded = hamming.decode(scrambled);
-console.log("Decoded that into", bitsToString(decoded));
-lineBreak();
+log(" - It's now:             ", bitsToString(scrambled.output));
+
+var decoded = hamming.decode(scrambled.output);
+log(" - Decoded as:           ", bitsToString(decoded));
 
 var output = ascii.fromBits(decoded);
-console.log("Output message:", output);
+log(" - Output message:       ", output);
 lineBreak();
 lineBreak();
 lineBreak();
