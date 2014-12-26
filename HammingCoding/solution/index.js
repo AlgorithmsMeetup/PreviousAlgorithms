@@ -8,7 +8,7 @@ function encode4Bits(bits) {
     [1, 1, 0, 0, 0, 1, 0],
     [1, 1, 1, 0, 0, 0, 1]
   ]);
-  return new Matrix([bits]).times(G).mod(2).popRow();
+  return Matrix.vector(bits).times(G).mod(2).popRow();
 }
 
 // Decode exactly 7 bits into 4 bits.
@@ -19,10 +19,10 @@ function decode7Bits(bits) {
     [0, 0, 1, 1, 1, 0, 1]
   ]);
 
-  var asMatrix = new Matrix([bits]).transpose();
-  var syndrome = H.times(asMatrix).mod(2).popCol();
+  var asMatrix = new Matrix.vectorVertical(bits);
+  var syndrome = H.times(asMatrix).mod(2);
   H.eachCol(function(col, idx) {
-    if (col[0] == syndrome[0] && col[1] == syndrome[1] && col[2] == syndrome[2]) {
+    if (syndrome.equalsCol(0, col)) {
       bits[idx] = 1 - bits[idx];
     }
   });

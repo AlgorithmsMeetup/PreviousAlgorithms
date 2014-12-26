@@ -9,6 +9,6 @@
   "author": "Peter Hayes <peter.k.hayes@gmail.com> (http://peterkhayes.com/)",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "functional-matrix": "0.0.3"
+    "functional-matrix": "~0.1.0"
   }
 }
