@@ -9,17 +9,15 @@ This is a highly interactive and supportive group dedicated to exploring our und
 
 The current Meetup format is as follows
 
-8:00 Meetup Starts, People settle in
+8:00 Meetup welcome
 
-8:05 Personal Introductions
+8:05 Problem description lecture
 
-8:10 Problem Introduction & Clarification
+8:20 Getting set up lecture
 
-8:20 People pair up to work on solutions
+8:30 People pair up and work on solutions
 
-8:25-9:20 Pairs hack on solutions. If there are tests, you make them pass.
-
-9:20-9:40 Algorithm Presentations, Pull Request submittal
+9:30 Solution lecture
 
 How to find Hack Reactor:
 Tell the doorman you are here for Hack Reactor and then come up to the 8th (top) floor!
