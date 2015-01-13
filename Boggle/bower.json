@@ -1,0 +1,21 @@
+{
+  "name": "Boggle",
+  "version": "0.0.0",
+  "homepage": "https://github.com/MrNice/HR-Algorithms-Meetup",
+  "authors": [
+    "Nicholas <nicholas@niceguys.com>","MP <monthy.python@supeek.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0"
+  }
+}
