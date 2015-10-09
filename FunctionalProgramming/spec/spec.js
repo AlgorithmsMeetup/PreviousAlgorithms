@@ -68,8 +68,8 @@ describe("More specialized functions", function() {
   });
 
   it("some", function() {
-    expect(every([1, 2, 3, 4, 25, 6], function(x) {return x > 10;})).to.be(true);
-    expect(every([1, 2, 3, 4, 5, 6], function(x) {return x > 10;})).to.be(false);
+    expect(some([1, 2, 3, 4, 25, 6], function(x) {return x > 10;})).to.be(true);
+    expect(some([1, 2, 3, 4, 5, 6], function(x) {return x > 10;})).to.be(false);
   });
 
   it("unique", function() {
@@ -133,7 +133,7 @@ describe("Applied problems", function() {
     var people = [
       {name: "Fred", age: 74, children: ["Bob", "Jane"]},
       {name: "Sal", age: 59, children: ["Sam", "Sally"]},
-      {name: "Rita", age: 66, children: ["Rob"]},
+      {name: "Rita", age: 64, children: ["Rob"]}, //Rita returning true bc age > 65
       {name: "Linda", age: 56, children: ["Rick", "James", "Jose"]}
     ];
     var filtered = olderOrWithChildren(people);
